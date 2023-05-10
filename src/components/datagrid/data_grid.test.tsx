@@ -91,12 +91,15 @@ function resizeColumn(
   const firstResizer = datagrid
     .find(`EuiDataGridColumnResizer[columnId="${columnId}"]`)
     .instance() as EuiDataGridColumnResizer;
-  firstResizer.onMouseDown({
-    pageX: originalWidth,
-    stopPropagation: () => {},
-    preventDefault: () => {},
-  } as React.MouseEvent<HTMLDivElement>);
-  firstResizer.onMouseMove({ pageX: columnWidth });
+
+  act(() => {
+    firstResizer.onMouseDown({
+      pageX: originalWidth,
+      stopPropagation: () => {},
+      preventDefault: () => {},
+    } as React.MouseEvent<HTMLDivElement>);
+  });
+  act(() => firstResizer.onMouseMove({ pageX: columnWidth }));
   act(() => firstResizer.onMouseUp());
 
   datagrid.update();
@@ -1169,9 +1172,12 @@ describe('EuiDataGrid', () => {
         ['2'],
       ]);
 
-      findTestSubject(component, 'tablePaginationPopoverButton').simulate(
-        'click'
-      );
+      act(() => {
+        findTestSubject(component, 'tablePaginationPopoverButton').simulate(
+          'click'
+        );
+      });
+
       const rowButtons: NodeListOf<HTMLButtonElement> = document.body.querySelectorAll(
         '.euiContextMenuItem'
       );
@@ -1181,7 +1187,10 @@ describe('EuiDataGrid', () => {
           (button: HTMLDivElement) => button.textContent || ''
         )
       ).toEqual(['3 rows', '6 rows', '10 rows']);
-      rowButtons[1].click();
+
+      act(() => {
+        rowButtons[1].click();
+      });
 
       expect(
         component.props().pagination.onChangeItemsPerPage
@@ -1239,18 +1248,22 @@ describe('EuiDataGrid', () => {
           />
         );
 
-        const originalCellWidths = extractColumnWidths(component);
-        expect(originalCellWidths).toEqual({
-          'Column 1': 100,
-          'Column 2': 100,
+        act(() => {
+          const originalCellWidths = extractColumnWidths(component);
+          expect(originalCellWidths).toEqual({
+            'Column 1': 100,
+            'Column 2': 100,
+          });
         });
 
         resizeColumn(component, 'Column 1', 150);
 
-        const updatedCellWidths = extractColumnWidths(component);
-        expect(updatedCellWidths).toEqual({
-          'Column 1': 150,
-          'Column 2': 100,
+        act(() => {
+          const updatedCellWidths = extractColumnWidths(component);
+          expect(updatedCellWidths).toEqual({
+            'Column 1': 150,
+            'Column 2': 100,
+          });
         });
       });
 
@@ -2172,9 +2185,11 @@ describe('EuiDataGrid', () => {
       expect(findTestSubject(component, 'alertAction').exists()).toBe(false);
       expect(findTestSubject(component, 'happyAction').exists()).toBe(false);
 
-      findTestSubject(component, 'dataGridRowCell').at(1).prop('onMouseEnter')!(
-        {} as React.MouseEvent
-      );
+      act(() => {
+        findTestSubject(component, 'dataGridRowCell')
+          .at(1)
+          .prop('onMouseEnter')!({} as React.MouseEvent);
+      });
 
       component.update();
 

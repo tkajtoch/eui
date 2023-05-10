@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { render, mount } from 'enzyme';
 import { keysOf } from '../common';
 import { requiredProps, takeMountedSnapshot } from '../../test';
@@ -18,13 +17,9 @@ import {
   POSITIONS,
 } from './bottom_bar';
 
-// @ts-ignore TODO: Temporary hack which we can remove once react-test-renderer supports portals.
-// More info at https://github.com/facebook/react/issues/11565.
-ReactDOM.createPortal = (children) => {
-  // hack to make enzyme treat the portal as a fragment
-  if (children == null) return [['nested']];
-  return children;
-};
+jest.mock('../portal', () => ({
+  EuiPortal: ({ children }: { children: any }) => children,
+}));
 
 describe('EuiBottomBar', () => {
   test('is rendered', () => {

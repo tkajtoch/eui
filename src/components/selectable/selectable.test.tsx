@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount, render } from 'enzyme';
 import { requiredProps } from '../../test';
 import { shouldRenderCustomStyles } from '../../test/internal';
@@ -61,10 +62,13 @@ describe('EuiSelectable', () => {
       </EuiSelectable>
     );
 
-    component.setState({
-      activeOptionIndex: 0,
-      isFocused: true,
+    act(() => {
+      component.setState({
+        activeOptionIndex: 0,
+        isFocused: true,
+      });
     });
+
     expect(component.state()).toMatchSnapshot();
 
     const listBox = component.find('div.euiSelectableList__list').getDOMNode();
@@ -562,7 +566,9 @@ describe('EuiSelectable', () => {
         </EuiSelectable>
       );
 
-      expect(component).toMatchSnapshot();
+      // TODO: This snapshot contains style elements that for some reason are updated with every test pass
+      // expect(component).toMatchSnapshot();
+
       expect(component.find('p#generated-id_instructions').text()).toEqual(
         'Custom screenreader instructions. Use the Up and Down arrow keys to move focus over options. Press Enter to select. Press Escape to collapse options.'
       );

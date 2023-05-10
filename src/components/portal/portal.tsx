@@ -43,12 +43,13 @@ export interface EuiPortalProps {
 export class EuiPortal extends Component<EuiPortalProps> {
   portalNode: HTMLDivElement | null = null;
 
-  constructor(props: EuiPortalProps) {
-    super(props);
+  componentDidMount() {
     if (typeof window === 'undefined') return; // Prevent SSR errors
 
     const { insert } = this.props;
 
+    // React 18 mounts the component twice in development mode,
+    // so the element needs to be created here
     this.portalNode = document.createElement('div');
     this.portalNode.dataset.euiportal = 'true';
 
@@ -60,9 +61,7 @@ export class EuiPortal extends Component<EuiPortalProps> {
       const { sibling, position } = insert;
       sibling.insertAdjacentElement(insertPositions[position], this.portalNode);
     }
-  }
 
-  componentDidMount() {
     this.updatePortalRef(this.portalNode);
   }
 

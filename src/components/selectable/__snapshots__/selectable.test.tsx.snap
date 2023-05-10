@@ -401,62 +401,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                         data-s=""
                       >
                         
-                        .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1lk6kbu-euiBadge__icon-left{}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                      </style>
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
                         .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                       </style>
                       <style
@@ -829,6 +773,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                       >
                         
                         .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1lk6kbu-euiBadge__icon-left{}
+                      </style>
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                       </style>
                     </head>,
                     "ctr": 63,
@@ -850,62 +850,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                         data-s=""
                       >
                         
-                        .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1lk6kbu-euiBadge__icon-left{}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
-                        .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                      </style>,
-                      <style
-                        data-emotion="css"
-                        data-s=""
-                      >
-                        
                         .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                       </style>,
                       <style
@@ -1278,6 +1222,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                       >
                         
                         .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1lk6kbu-euiBadge__icon-left{}
+                      </style>,
+                      <style
+                        data-emotion="css"
+                        data-s=""
+                      >
+                        
+                        .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                       </style>,
                     ],
                   },
@@ -1563,62 +1563,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                                                   data-s=""
                                                 >
                                                   
-                                                  .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1lk6kbu-euiBadge__icon-left{}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                                                </style>
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
                                                   .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                                                 </style>
                                                 <style
@@ -1991,6 +1935,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                                                 >
                                                   
                                                   .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1lk6kbu-euiBadge__icon-left{}
+                                                </style>
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                                                 </style>
                                               </head>,
                                               "ctr": 63,
@@ -2012,62 +2012,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                                                   data-s=""
                                                 >
                                                   
-                                                  .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1lk6kbu-euiBadge__icon-left{}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
-                                                  .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                                                </style>,
-                                                <style
-                                                  data-emotion="css"
-                                                  data-s=""
-                                                >
-                                                  
                                                   .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                                                 </style>,
                                                 <style
@@ -2440,6 +2384,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                                                 >
                                                   
                                                   .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1lk6kbu-euiBadge__icon-left{}
+                                                </style>,
+                                                <style
+                                                  data-emotion="css"
+                                                  data-s=""
+                                                >
+                                                  
+                                                  .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                                                 </style>,
                                               ],
                                             },
@@ -2737,62 +2737,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                       data-s=""
                     >
                       
-                      .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1lk6kbu-euiBadge__icon-left{}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                    </style>
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
                       .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                     </style>
                     <style
@@ -3165,6 +3109,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                     >
                       
                       .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1lk6kbu-euiBadge__icon-left{}
+                    </style>
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                     </style>
                   </head>,
                   "ctr": 63,
@@ -3186,62 +3186,6 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                       data-s=""
                     >
                       
-                      .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1lk6kbu-euiBadge__icon-left{}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
-                      .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
-                    </style>,
-                    <style
-                      data-emotion="css"
-                      data-s=""
-                    >
-                      
                       .css-dnf34u-euiText-xs-euiTextColor-subdued{color:inherit;font-weight:400;clear:both;font-size:0.8571rem;line-height:1.1429rem;color:#646a77;}
                     </style>,
                     <style
@@ -3614,6 +3558,62 @@ exports[`EuiSelectable screen reader instructions sets custom accessibility inst
                     >
                       
                       .emotion-euiMarkStyles-EuiMark:after{content:' [highlight end] ';}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow{display:inline-block;vertical-align:middle;padding-block:0;padding-inline:8px;max-inline-size:100%;font-size:0.8571rem;line-height:18px;font-weight:500;white-space:nowrap;-webkit-text-decoration:none;text-decoration:none;cursor:default;background-color:transparent;border:1px solid transparent;border-radius:3px;text-align:start;background-color:#FFF;border-color:#D3DAE6;color:#343741;}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within{outline:2px solid currentColor;outline-offset:calc(2px / -2);}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within:focus-visible{outline-style:auto;}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow:focus-within:not(:focus-visible){outline:none;}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-h5k472-euiBadge-hollow+.euiBadge{-webkit-margin-start:4px;margin-inline-start:4px;}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1yj2yi7-euiBadge__content{min-block-size:18px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1lk6kbu-euiBadge__icon-left{}
+                    </style>,
+                    <style
+                      data-emotion="css"
+                      data-s=""
+                    >
+                      
+                      .css-1lk6kbu-euiBadge__icon-left:not(:only-child){-webkit-margin-end:4px;margin-inline-end:4px;}
                     </style>,
                   ],
                 },
