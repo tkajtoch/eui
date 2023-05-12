@@ -6,12 +6,7 @@
  * Side Public License, v 1.
  */
 
-/**
- * NOTE: We can't test this component because Enzyme doesn't support rendering
- * into portals.
- */
-
-import { Component, ReactNode } from 'react';
+import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { keysOf } from '../common';
 
@@ -40,47 +35,38 @@ export interface EuiPortalProps {
   portalRef?: (ref: HTMLDivElement | null) => void;
 }
 
-export class EuiPortal extends Component<EuiPortalProps> {
-  portalNode: HTMLDivElement | null = null;
+export const EuiPortal: FunctionComponent<EuiPortalProps> = ({
+  children,
+  insert,
+  portalRef,
+}) => {
+  const [container] = useState(() => {
+    const element = document.createElement('div');
+    element.dataset.euiportal = 'true';
+    return element;
+  });
+  const [portalRefCache] = useState(() => portalRef);
 
-  componentDidMount() {
-    if (typeof window === 'undefined') return; // Prevent SSR errors
-
-    const { insert } = this.props;
-
-    // React 18 mounts the component twice in development mode,
-    // so the element needs to be created here
-    this.portalNode = document.createElement('div');
-    this.portalNode.dataset.euiportal = 'true';
-
-    if (insert == null) {
-      // no insertion defined, append to body
-      document.body.appendChild(this.portalNode);
-    } else {
-      // inserting before or after an element
+  useEffect(() => {
+    if (insert) {
       const { sibling, position } = insert;
-      sibling.insertAdjacentElement(insertPositions[position], this.portalNode);
+      sibling.insertAdjacentElement(insertPositions[position], container);
+    } else {
+      document.body.appendChild(container);
     }
 
-    this.updatePortalRef(this.portalNode);
-  }
-
-  componentWillUnmount() {
-    if (this.portalNode?.parentNode) {
-      this.portalNode.parentNode.removeChild(this.portalNode);
+    if (portalRefCache) {
+      portalRefCache(container);
     }
-    this.updatePortalRef(null);
-  }
 
-  updatePortalRef(ref: HTMLDivElement | null) {
-    if (this.props.portalRef) {
-      this.props.portalRef(ref);
-    }
-  }
+    return () => {
+      container.parentNode?.removeChild(container);
 
-  render() {
-    return this.portalNode
-      ? createPortal(this.props.children, this.portalNode)
-      : null;
-  }
-}
+      if (portalRefCache) {
+        portalRefCache(null);
+      }
+    };
+  }, [container, insert, portalRefCache]);
+
+  return createPortal(children, container);
+};

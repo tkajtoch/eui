@@ -90,9 +90,12 @@ describe('EuiBreadcrumbs', () => {
       expect(component).toMatchSnapshot();
     });
 
-    const getBreadcrumbClass = (component: Cheerio, dataTestSubj: string) =>
+    const getBreadcrumbClass = (
+      component: cheerio.Cheerio,
+      dataTestSubj: string
+    ) =>
       replaceEmotionPrefix(
-        component.find(`[data-test-subj=${dataTestSubj}]`).attr('class')
+        component.find(`[data-test-subj=${dataTestSubj}]`).attr('class')!
       );
 
     test('child breadcrumbs can override truncate set on parent breadcrumbs', () => {

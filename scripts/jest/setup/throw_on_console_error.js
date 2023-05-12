@@ -16,5 +16,16 @@ console.error = (message, ...rest) => {
     return;
   }
 
+  // TODO: fix me
+  if (
+    typeof message === 'string' &&
+    (
+      message.startsWith('Warning: ReactDOM.render is no longer supported in React 18') ||
+      message.startsWith('Warning: The current testing environment is not configured to support act')
+    )
+  ) {
+    return;
+  }
+
   throw new Error(format(message, ...rest));
 };

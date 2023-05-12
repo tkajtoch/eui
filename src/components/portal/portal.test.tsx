@@ -7,35 +7,30 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
 import { EuiPortal } from './portal';
+import { render, screen } from '../../test/rtl';
 
-describe('EuiPortal', () => {
+describe('EuiPortalRTL', () => {
   it('is rendered', () => {
-    const component = mount(
-      <div>
-        <EuiPortal>Content</EuiPortal>
-      </div>
-    );
-
-    expect(component).toMatchSnapshot();
+    render(<EuiPortal>Content</EuiPortal>);
+    expect(screen.getByText('Content')).toBeInTheDocument();
   });
 
   describe('behavior', () => {
     it('portalRef', () => {
-      const portalRef = jest.fn();
+      let ref: HTMLDivElement | null = null;
+      const updateRef = (newRef: HTMLDivElement | null) => {
+        ref = newRef;
+      };
 
-      const component = mount(
-        <EuiPortal portalRef={portalRef}>Content</EuiPortal>
+      const { unmount } = render(
+        <EuiPortal portalRef={updateRef}>Content</EuiPortal>
       );
+      expect(screen.getByText('Content')).toBeInTheDocument();
 
-      expect(portalRef).toHaveBeenCalledTimes(1);
-      expect(portalRef.mock.calls[0][0]).toBeInstanceOf(HTMLDivElement);
-
-      component.unmount();
-
-      expect(portalRef).toHaveBeenCalledTimes(2);
-      expect(portalRef.mock.calls[1][0]).toBeNull();
+      expect(ref).toBeInTheDocument();
+      unmount();
+      expect(ref).not.toBeInTheDocument();
     });
   });
 });
