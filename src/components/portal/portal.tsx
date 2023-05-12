@@ -35,12 +35,18 @@ export interface EuiPortalProps {
   portalRef?: (ref: HTMLDivElement | null) => void;
 }
 
+const isClient = typeof window !== 'undefined';
+
 export const EuiPortal: FunctionComponent<EuiPortalProps> = ({
   children,
   insert,
   portalRef,
 }) => {
   const [container] = useState(() => {
+    if (!isClient) {
+      return null;
+    }
+
     const element = document.createElement('div');
     element.dataset.euiportal = 'true';
     return element;
@@ -48,6 +54,10 @@ export const EuiPortal: FunctionComponent<EuiPortalProps> = ({
   const [portalRefCache] = useState(() => portalRef);
 
   useEffect(() => {
+    if (!container) {
+      return;
+    }
+
     if (insert) {
       const { sibling, position } = insert;
       sibling.insertAdjacentElement(insertPositions[position], container);
@@ -67,6 +77,10 @@ export const EuiPortal: FunctionComponent<EuiPortalProps> = ({
       }
     };
   }, [container, insert, portalRefCache]);
+
+  if (!container) {
+    return null;
+  }
 
   return createPortal(children, container);
 };

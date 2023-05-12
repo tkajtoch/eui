@@ -10,7 +10,7 @@ import React from 'react';
 import { EuiPortal } from './portal';
 import { render, screen } from '../../test/rtl';
 
-describe('EuiPortalRTL', () => {
+describe('EuiPortal', () => {
   it('is rendered', () => {
     render(<EuiPortal>Content</EuiPortal>);
     expect(screen.getByText('Content')).toBeInTheDocument();
