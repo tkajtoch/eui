@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '../../test/rtl';
 import { render } from '@testing-library/react';
 
 import { setEuiDevProviderWarning } from './provider';
@@ -43,11 +43,13 @@ describe('useEuiTheme', () => {
 
   it('consecutive calls return a stable object', () => {
     const { result, rerender } = renderHook(useEuiTheme);
-    expect(result.all.length).toEqual(1);
-    rerender({});
-    expect(result.all.length).toEqual(2);
+    const firstObject = result.current;
 
-    expect(result.all[0]).toBe(result.all[1]);
+    rerender({});
+
+    const secondObject = result.current;
+
+    expect(firstObject).toBe(secondObject);
   });
 });
 
