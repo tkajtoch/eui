@@ -7,8 +7,8 @@
  */
 
 import React from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { render, waitForEuiPopoverOpen } from '../../../test/rtl';
+import { act } from 'react-dom/test-utils';
+import { render, renderHook, waitForEuiPopoverOpen } from '../../../test/rtl';
 import { useDataGridKeyboardShortcuts } from './keyboard_shortcuts';
 
 describe('useDataGridKeyboardShortcuts', () => {

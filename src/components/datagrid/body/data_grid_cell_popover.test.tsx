@@ -7,8 +7,9 @@
  */
 
 import React from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
+import { renderHook } from '../../../test/rtl';
 
 import { keys } from '../../../services';
 
