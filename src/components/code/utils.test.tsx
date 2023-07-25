@@ -8,7 +8,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '../../test/rtl';
 import { useEuiTheme } from '../../services';
 
 import {
@@ -114,7 +114,6 @@ describe('line utils', () => {
           start: 1,
         });
         expect(highlight).toMatchSnapshot();
-        // @ts-expect-error RefractorNode
         expect(highlight[0].children[0].children.length).toBe(1);
       });
     });
@@ -126,7 +125,6 @@ describe('line utils', () => {
           start: 1,
         });
         expect(highlight).toMatchSnapshot();
-        // @ts-expect-error RefractorNode
         expect(highlight[0].children.length).toBe(2);
       });
 
@@ -138,7 +136,6 @@ describe('line utils', () => {
           });
           expect(highlight).toMatchSnapshot();
           expect(
-            // @ts-expect-error RefractorNode
             highlight[0].children[0].children[0].properties['data-line-number']
           ).toBe(10);
         });
@@ -153,7 +150,6 @@ describe('line utils', () => {
           });
           expect(highlight).toMatchSnapshot();
           expect(
-            // @ts-expect-error RefractorNode
             highlight[0].children[1].properties.className[1].includes(
               'euiCodeBlock__lineText-isHighlighted'
             )
@@ -169,7 +165,6 @@ describe('line utils', () => {
             annotations: { 1: 'Hello world' },
           });
           expect(annotation).toMatchSnapshot();
-          // @ts-expect-error RefractorNode
           expect(annotation[0].children[0].children[1]).toEqual({
             type: 'annotation',
             lineNumber: 1,
