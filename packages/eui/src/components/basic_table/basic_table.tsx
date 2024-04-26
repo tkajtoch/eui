@@ -309,8 +309,8 @@ export class EuiBasicTable<T extends object = any> extends Component<
   EuiBasicTableProps<T>,
   State<T>
 > {
-  static contextType = EuiComponentDefaultsContext;
-  declare context: ContextType<typeof EuiComponentDefaultsContext>;
+  // static contextType = EuiComponentDefaultsContext;
+  // declare context: ContextType<typeof EuiComponentDefaultsContext>;
 
   static defaultProps = {
     tableLayout: 'fixed',

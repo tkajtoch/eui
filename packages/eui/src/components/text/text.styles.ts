@@ -168,7 +168,7 @@ const euiScaleText = (
     ol ol ol {
       list-style-type: lower-alpha;
     }
-  
+
     blockquote {
       font-size: ${fontSize};
       ${logicalShorthandCSS('padding', `0 ${fontSize}`)}
@@ -212,7 +212,7 @@ const euiScaleText = (
       ${logicalCSS('min-width', euiTheme.size.l)}
       ${logicalTextAlignCSS('center')}
     }
-    
+
     kbd::after {
       content: '';
       ${logicalCSS(

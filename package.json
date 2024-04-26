@@ -4,11 +4,18 @@
   "version": "1.0.0",
   "description": "Elastic Design System",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "pre-push": "yarn --cwd packages/eui pre-push"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/elastic/eui.git"
+  },
+  "resolutions": {
+    "prismjs": "1.27.0",
+    "react": "^18",
+    "@types/react": "^18",
+    "react-focus-lock": "^2.9.5"
   },
   "pre-push": [
     "pre-push"
