@@ -55,8 +55,8 @@ interface EuiPortalState {
 }
 
 export class EuiPortalClass extends Component<EuiPortalProps, EuiPortalState> {
-  // static contextType = EuiNestedThemeContext;
-  // declare context: ContextType<typeof EuiNestedThemeContext>;
+  static contextType = EuiNestedThemeContext;
+  declare context: ContextType<typeof EuiNestedThemeContext>;
 
   constructor(props: EuiPortalProps) {
     super(props);

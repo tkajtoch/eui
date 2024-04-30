@@ -14,6 +14,8 @@ const { execSync } = require('child_process');
 const rootDir = path.resolve(__dirname, '..');
 const changelogDir = rootDir + '/changelogs';
 
+console.log({ rootDir, changelogDir });
+
 const throwError = (error) => {
   console.error(chalk.red(error));
   process.exit(1);

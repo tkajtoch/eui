@@ -7,8 +7,7 @@
  */
 
 import React, { useState } from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, act } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import { findTestSubject, requiredProps } from '../../test';

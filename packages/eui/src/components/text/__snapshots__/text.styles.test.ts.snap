@@ -105,7 +105,7 @@ exports[`euiTextStyles sizes m 1`] = `
     ol ol ol {
       list-style-type: lower-alpha;
     }
-  
+
     blockquote {
       font-size: 1.1429rem;
       
@@ -149,7 +149,7 @@ exports[`euiTextStyles sizes m 1`] = `
       min-inline-size: 24px;
       text-align: center;
     }
-    
+
     kbd::after {
       content: '';
       border-block-end: 1px solid #343741;
@@ -266,7 +266,7 @@ exports[`euiTextStyles sizes relative 1`] = `
     ol ol ol {
       list-style-type: lower-alpha;
     }
-  
+
     blockquote {
       font-size: 1em;
       
@@ -412,7 +412,7 @@ exports[`euiTextStyles sizes s 1`] = `
     ol ol ol {
       list-style-type: lower-alpha;
     }
-  
+
     blockquote {
       font-size: 1.0000rem;
       
@@ -558,7 +558,7 @@ exports[`euiTextStyles sizes xs 1`] = `
     ol ol ol {
       list-style-type: lower-alpha;
     }
-  
+
     blockquote {
       font-size: 0.8571rem;
       

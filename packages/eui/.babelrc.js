@@ -23,6 +23,12 @@ module.exports = {
     ],
   ],
   "plugins": [
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        allowDeclareFields: true,
+      },
+    ],
     `${__dirname}/scripts/babel/proptypes-from-ts-props`,
     "add-module-exports",
     // stage 3

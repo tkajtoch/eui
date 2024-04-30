@@ -117,8 +117,8 @@ export class EuiTreeViewClass extends Component<
 > {
   treeIdGenerator = htmlIdGenerator('euiTreeView');
 
-  // static contextType = EuiTreeViewContext;
-  // declare context: ContextType<typeof EuiTreeViewContext>;
+  static contextType = EuiTreeViewContext;
+  declare context: ContextType<typeof EuiTreeViewContext>;
 
   isNested: boolean;
 

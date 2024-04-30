@@ -6,7 +6,7 @@
  * Side Public License, v 1.
  */
 
-import { css, keyframes, type SerializedStyles } from '@emotion/react';
+import { css, keyframes, type CSSObject, type SerializedStyles } from '@emotion/react';
 import { euiBackgroundColor, euiCanAnimate } from '../../../../global_styling';
 import {
   hexToRgb,
@@ -285,15 +285,15 @@ export const euiButtonSizeMap = ({ euiTheme }: UseEuiTheme) => ({
     height: euiTheme.size.l,
     radius: euiTheme.border.radius.small,
     fontScale: 'xs' as const,
-  },
+  } as CSSObject,
   s: {
     height: euiTheme.size.xl,
     radius: euiTheme.border.radius.small,
     fontScale: 's' as const,
-  },
+  } as CSSObject,
   m: {
     height: euiTheme.size.xxl,
     radius: euiTheme.border.radius.medium,
     fontScale: 's' as const,
-  },
+  } as CSSObject,
 });

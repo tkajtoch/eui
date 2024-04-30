@@ -100,8 +100,8 @@ export class EuiComboBoxOptionsList<T> extends Component<
 > {
   listRef: FixedSizeList | null = null;
 
-  // static contextType = EuiInputPopoverWidthContext;
-  // declare context: ContextType<typeof EuiInputPopoverWidthContext>;
+  static contextType = EuiInputPopoverWidthContext;
+  declare context: ContextType<typeof EuiInputPopoverWidthContext>;
 
   static defaultProps = {
     'data-test-subj': '',

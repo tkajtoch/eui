@@ -6,7 +6,7 @@
  * Side Public License, v 1.
  */
 
-import { css } from '@emotion/react';
+import { css, CSSObject } from '@emotion/react';
 import { UseEuiTheme } from '../../services';
 import {
   logicalCSS,
@@ -32,7 +32,7 @@ export const euiTextConstrainedMaxWidth = 'max(64ch, 75%)';
 export const euiText = (
   euiTheme: UseEuiTheme['euiTheme'],
   inheritColor = false
-) => {
+): CSSObject => {
   return {
     color: inheritColor ? 'inherit' : euiTheme.colors.text,
     fontWeight: euiTheme.font.weight.regular,

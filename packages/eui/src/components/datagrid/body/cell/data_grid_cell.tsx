@@ -180,8 +180,8 @@ export class EuiDataGridCell extends Component<
   unsubscribeCell?: Function;
   style = null;
 
-  // static contextType = DataGridFocusContext;
-  // declare context: ContextType<typeof DataGridFocusContext>;
+  static contextType = DataGridFocusContext;
+  declare context: ContextType<typeof DataGridFocusContext>;
 
   updateCellFocusContext = () => {
     this.context.setFocusedCell([
