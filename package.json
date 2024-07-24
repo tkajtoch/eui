@@ -22,6 +22,7 @@
     "pre-push"
   ],
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "pre-push": "^0.1.4"
   },
   "resolutions": {
