@@ -72,13 +72,13 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'rootSidebar',
+          sidebarId: 'components',
           position: 'left',
-          label: 'Documentation',
+          label: 'Components',
         },
         {
           type: 'docSidebar',
-          sidebarId: 'patternsSidebar',
+          sidebarId: 'patterns',
           position: 'left',
           label: 'Patterns',
         },
