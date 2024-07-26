@@ -11,6 +11,10 @@ const getStyles = ({ euiTheme }: UseEuiTheme) => {
     text: css`
       p {
         margin-block-end: ${euiTheme.size.xl};
+
+        &:last-child {
+          margin-block-end: 0;
+        }
       }
 
       ul,
