@@ -84,7 +84,7 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
-          sidebarId: 'contentSidebar',
+          sidebarId: 'content',
           position: 'left',
           label: 'Content',
         },
