@@ -48,130 +48,6 @@ import {
 } from '@elastic/eui';
 import { css } from '@emotion/react';
 
-export default () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [isLoading, setLoading] = useState(false);
-  const [searchRef, setSearchRef] = useState<HTMLInputElement | null>(null);
-  const searchValueExists = searchValue && searchValue.length;
-
-  /**
-   * Timeout to simulate loading (only on key command+k)
-   */
-  let searchTimeout;
-  const startSearchTimeout = () => {
-    searchTimeout = setTimeout(() => {
-      // Simulate a remotely-executed search.
-      setLoading(false);
-    }, 400);
-  };
-  clearTimeout(searchTimeout);
-  startSearchTimeout();
-
-  /**
-   * Take the first 5 options and simulate recently viewed
-   */
-  const recents = searchData.slice(0, 5);
-  const recentsWithIcon: EuiSelectableTemplateSitewideOption[] = recents.map(
-    (recent) => {
-      return {
-        ...recent,
-        icon: {
-          type: 'clock',
-          color: 'subdued',
-        },
-      };
-    }
-  );
-
-  /**
-   * Hook up the keyboard shortcut for command+k to initiate focus into search input
-   */
-  useEffect(() => {
-    const onWindowKeyUp = () => {
-      searchRef?.focus();
-      setLoading(true);
-      window.removeEventListener('keyup', onWindowKeyUp);
-    };
-
-    const onWindowKeyDown = (e: any) => {
-      if (e.metaKey && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        window.addEventListener('keyup', onWindowKeyUp);
-      }
-    };
-
-    window.addEventListener('keydown', onWindowKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', onWindowKeyDown);
-      window.removeEventListener('keyup', onWindowKeyUp);
-    };
-  }, [searchRef]);
-
-  const onKeyUpCapture = (e: any) => {
-    setSearchValue(e.currentTarget.value);
-  };
-
-  /**
-   * Do something with the selection based on the found option with `checked: on`
-   */
-  const onChange = (updatedOptions: EuiSelectableTemplateSitewideOption[]) => {
-    const clickedItem = updatedOptions.find(
-      (option) => option.checked === 'on'
-    );
-    if (!clickedItem) return;
-  };
-
-  const { euiTheme } = useEuiTheme();
-
-  return (
-    <EuiSelectableTemplateSitewide
-      isLoading={isLoading}
-      onChange={onChange}
-      options={searchValueExists ? searchData : recentsWithIcon}
-      searchProps={{
-        append: '⌘K',
-        onKeyUpCapture: onKeyUpCapture,
-        className: 'customSearchClass',
-        inputRef: setSearchRef,
-      }}
-      listProps={{
-        className: 'customListClass',
-        css: css`
-          .euiSelectableTemplateSitewide__optionMeta--PINK {
-            font-weight: ${euiTheme.font.weight.medium};
-            color: ${euiTheme.colors.accentText};
-          }
-        `,
-      }}
-      popoverProps={{
-        className: 'customPopoverClass',
-      }}
-      popoverButton={<EuiButton>Mobile toggle</EuiButton>}
-      popoverButtonBreakpoints={['xs', 's']}
-      popoverFooter={
-        <EuiText color="subdued" size="xs">
-          <EuiFlexGroup
-            alignItems="center"
-            gutterSize="s"
-            responsive={false}
-            wrap
-          >
-            <EuiFlexItem grow={false}>
-              {searchValueExists && <EuiLink>View more results</EuiLink>}
-            </EuiFlexItem>
-            <EuiFlexItem />
-            <EuiFlexItem grow={false}>Quickly search using</EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <EuiBadge>Command + K</EuiBadge>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        </EuiText>
-      }
-    />
-  );
-};
-
 /**
  * The options object
  */
@@ -382,47 +258,172 @@ const searchData: EuiSelectableTemplateSitewideOption[] = [
   },
 ];
 
+export default () => {
+  const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const [searchRef, setSearchRef] = useState<HTMLInputElement | null>(null);
+  const searchValueExists = searchValue && searchValue.length;
+
+  /**
+   * Timeout to simulate loading (only on key command+k)
+   */
+  let searchTimeout;
+  const startSearchTimeout = () => {
+    searchTimeout = setTimeout(() => {
+      // Simulate a remotely-executed search.
+      setLoading(false);
+    }, 400);
+  };
+  clearTimeout(searchTimeout);
+  startSearchTimeout();
+
+  /**
+   * Take the first 5 options and simulate recently viewed
+   */
+  const recents = searchData.slice(0, 5);
+  const recentsWithIcon: EuiSelectableTemplateSitewideOption[] = recents.map(
+    (recent) => {
+      return {
+        ...recent,
+        icon: {
+          type: 'clock',
+          color: 'subdued',
+        },
+      };
+    }
+  );
+
+  /**
+   * Hook up the keyboard shortcut for command+k to initiate focus into search input
+   */
+  useEffect(() => {
+    const onWindowKeyUp = () => {
+      searchRef?.focus();
+      setLoading(true);
+      window.removeEventListener('keyup', onWindowKeyUp);
+    };
+
+    const onWindowKeyDown = (e: any) => {
+      if (e.metaKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        window.addEventListener('keyup', onWindowKeyUp);
+      }
+    };
+
+    window.addEventListener('keydown', onWindowKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', onWindowKeyDown);
+      window.removeEventListener('keyup', onWindowKeyUp);
+    };
+  }, [searchRef]);
+
+  const onKeyUpCapture = (e: any) => {
+    setSearchValue(e.currentTarget.value);
+  };
+
+  /**
+   * Do something with the selection based on the found option with `checked: on`
+   */
+  const onChange = (updatedOptions: EuiSelectableTemplateSitewideOption[]) => {
+    const clickedItem = updatedOptions.find(
+      (option) => option.checked === 'on'
+    );
+    if (!clickedItem) return;
+  };
+
+  const { euiTheme } = useEuiTheme();
+
+  return (
+    <EuiSelectableTemplateSitewide
+      isLoading={isLoading}
+      onChange={onChange}
+      options={searchValueExists ? searchData : recentsWithIcon}
+      searchProps={{
+        append: '⌘K',
+        onKeyUpCapture: onKeyUpCapture,
+        className: 'customSearchClass',
+        inputRef: setSearchRef,
+      }}
+      listProps={{
+        className: 'customListClass',
+        css: css`
+          .euiSelectableTemplateSitewide__optionMeta--PINK {
+            font-weight: ${euiTheme.font.weight.medium};
+            color: ${euiTheme.colors.accentText};
+          }
+        `,
+      }}
+      popoverProps={{
+        className: 'customPopoverClass',
+      }}
+      popoverButton={<EuiButton>Mobile toggle</EuiButton>}
+      popoverButtonBreakpoints={['xs', 's']}
+      popoverFooter={
+        <EuiText color="subdued" size="xs">
+          <EuiFlexGroup
+            alignItems="center"
+            gutterSize="s"
+            responsive={false}
+            wrap
+          >
+            <EuiFlexItem grow={false}>
+              {searchValueExists && <EuiLink>View more results</EuiLink>}
+            </EuiFlexItem>
+            <EuiFlexItem />
+            <EuiFlexItem grow={false}>Quickly search using</EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiBadge>Command + K</EuiBadge>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiText>
+      }
+    />
+  );
+};
 ```
 
 ## Options
 
 The `options` are the most opinionated portion of the template. Their display is determined by the props passed in and extends the normal `EuiSelectable.option` type. All parts are optional with the exception of the label (A).
 
-*   B
+import { SitewideOption } from './sitewide_option';
 
-    A. LabelD. MetaDeploymentDefault display
+<SitewideOption />
 
-    C
+<br />
+<details>
+  <summary>
+    Code snippet
+  </summary>
 
-
-Code snippet
-
-```
-const options: EuiSelectableTemplateSitewideOption[] = [
-  {
-    label: 'Label',
-    icon: {
-      type: 'logoKibana'
-    }
-    avatar: {
-      name: 'Default',
+  ```tsx
+  const options: EuiSelectableTemplateSitewideOption[] = [
+    {
+      label: 'Label',
+      icon: {
+        type: 'logoKibana'
+      }
+      avatar: {
+        name: 'Default',
+      },
+      meta: [
+        {
+          text: 'Meta',
+          type: 'application',
+        },
+        {
+          text: 'Deployment',
+          type: 'deployment',
+        },
+        {
+          text: 'Default display',
+        },
+      ],
     },
-    meta: [
-      {
-        text: 'Meta',
-        type: 'application',
-      },
-      {
-        text: 'Deployment',
-        type: 'deployment',
-      },
-      {
-        text: 'Default display',
-      },
-    ],
-  }
-]
-```
+  ]
+  ```
+</details>
 
 *   `label` (required): The name of the item itself. By default, the search box will only use this to match the search term against, but you can supply a separate `searchableLabel` that combines the label and meta data to search on.
 *   `icon`: Only display the solution or application's logo when the option links to the application itself (Dashboard app) and not lower-level items such as individual dashboards. Size and color are predetermined but can be overridden.

@@ -53,50 +53,6 @@ import {
   EuiFlyoutBody,
 } from '@elastic/eui';
 
-export default () => {
-  return (
-    <>
-      <EuiThemeProvider colorMode="light">
-        <ThemedChildren />
-      </EuiThemeProvider>
-      <EuiSpacer />
-
-      <EuiThemeProvider colorMode="dark">
-        <ThemedChildren />
-      </EuiThemeProvider>
-      <EuiSpacer />
-
-      <EuiThemeProvider colorMode="inverse">
-        <ThemedChildren>
-          <EuiSpacer size="m" />
-          <EuiText>
-            <p>
-              This panel is in <strong>inverse</strong> mode (the opposite of
-              the global color mode), and renders a 3rd level nested theme
-              provider that inverses color mode yet again.
-            </p>
-          </EuiText>
-          <EuiSpacer size="m" />
-
-          <EuiThemeProvider
-            colorMode="inverse"
-            wrapperProps={{ cloneElement: true }}
-          >
-            <ThemedChildren>
-              <EuiText>
-                <p>
-                  This panel demonstrates the <EuiCode>cloneElement</EuiCode>{' '}
-                  property.
-                </p>
-              </EuiText>
-            </ThemedChildren>
-          </EuiThemeProvider>
-        </ThemedChildren>
-      </EuiThemeProvider>
-    </>
-  );
-};
-
 const ThemedChildren: FC<PropsWithChildren> = ({ children, ...rest }) => {
   const { colorMode: _colorMode } = useEuiTheme();
   const colorMode = _colorMode.toLowerCase();
@@ -207,6 +163,50 @@ const Flyout: FC<PropsWithChildren> = ({ children }) => {
           </EuiFlyoutBody>
         </EuiFlyout>
       )}
+    </>
+  );
+};
+
+export default () => {
+  return (
+    <>
+      <EuiThemeProvider colorMode="light">
+        <ThemedChildren />
+      </EuiThemeProvider>
+      <EuiSpacer />
+
+      <EuiThemeProvider colorMode="dark">
+        <ThemedChildren />
+      </EuiThemeProvider>
+      <EuiSpacer />
+
+      <EuiThemeProvider colorMode="inverse">
+        <ThemedChildren>
+          <EuiSpacer size="m" />
+          <EuiText>
+            <p>
+              This panel is in <strong>inverse</strong> mode (the opposite of
+              the global color mode), and renders a 3rd level nested theme
+              provider that inverses color mode yet again.
+            </p>
+          </EuiText>
+          <EuiSpacer size="m" />
+
+          <EuiThemeProvider
+            colorMode="inverse"
+            wrapperProps={{ cloneElement: true }}
+          >
+            <ThemedChildren>
+              <EuiText>
+                <p>
+                  This panel demonstrates the <EuiCode>cloneElement</EuiCode>{' '}
+                  property.
+                </p>
+              </EuiText>
+            </ThemedChildren>
+          </EuiThemeProvider>
+        </ThemedChildren>
+      </EuiThemeProvider>
     </>
   );
 };

@@ -11,6 +11,7 @@ import { Badge } from '../../components/badge';
 import { Icon } from '../../components/icon';
 import { FigmaEmbed } from '../../components/figma_embed';
 import { Demo, DemoSource } from '../../components/demo';
+import { GuideRule } from '../../components/guide_rule';
 
 const MDXComponents = {
   ...OriginalMDXComponents,
@@ -19,6 +20,7 @@ const MDXComponents = {
   Icon,
   Demo,
   DemoSource,
+  GuideRule,
 };
 
 export default MDXComponents;
