@@ -37,9 +37,8 @@
     "test-cypress-a11y": "yarn test-cypress --a11y",
     "test-visual-regression": "node ./scripts/test-visual-regression.js",
     "combine-test-coverage": "sh ./scripts/combine-coverage.sh",
-    "yo-component": "yo ./generator-eui/app/component.js",
-    "yo-doc": "yo ./generator-eui/app/documentation.js",
-    "yo-changelog": "yo ./generator-eui/changelog/index.js",
+    "yo-component": "yo @elastic/eui:component",
+    "yo-changelog": "yo @elastic/eui:changelog",
     "release": "node ./scripts/release.js",
     "release-backport": "node ./scripts/release.js --type=backport",
     "release-rc": "node ./scripts/release.js --type=prerelease",
@@ -106,6 +105,7 @@
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui-theme-borealis": "workspace:^",
     "@elastic/eui-theme-common": "workspace:^",
+    "@elastic/generator-eui": "workspace:^",
     "@emotion/babel-preset-css-prop": "^11.11.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/css": "^11.11.0",
@@ -251,8 +251,7 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0",
     "yargs": "^17.2.1",
-    "yeoman-generator": "^4.12.0",
-    "yo": "^4.3.1"
+    "yo": "^5.0.0"
   },
   "peerDependencies": {
     "@elastic/datemath": "^5.0.2",

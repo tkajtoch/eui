@@ -1,16 +1,23 @@
-const chalk = require('chalk');
-const Generator = require('yeoman-generator');
-const utils = require('../utils');
+import chalk from 'chalk';
+import Generator from 'yeoman-generator';
+import * as utils from '../utils.mjs';
 
-module.exports = class extends Generator {
-  constructor(args, options) {
-    super(args, options);
-
-    this.fileType = options.fileType;
-  }
-
-  prompting() {
-    return this.prompt([
+export default class extends Generator {
+  async prompting() {
+    this.answers = await this.prompt([
+      {
+        message: 'What do you want to create?',
+        name: 'fileType',
+        type: 'list',
+        choices: [{
+          name: 'Stateless function (recommended)',
+          value: 'function',
+        }, {
+          name: 'Component class',
+          value: 'component',
+        }],
+        default: 'function',
+      },
       {
         message: "What's the name of this component? Use snake_case, please.",
         name: 'name',
@@ -29,20 +36,18 @@ module.exports = class extends Generator {
         type: 'confirm',
         default: true,
       },
-    ]).then((answers) => {
-      this.config = answers;
+    ]);
 
-      if (!answers.name || !answers.name.trim()) {
-        this.log.error(
-          'Sorry, please run this generator again and provide a component name.'
-        );
-        process.exit(1);
-      }
-    });
+    if (!this.answers.name || !this.answers.name.trim()) {
+      this.log.error(
+        'Sorry, please run this generator again and provide a component name.'
+      );
+      process.exit(1);
+    }
   }
 
   writing() {
-    const config = this.config;
+    const config = this.answers;
 
     const writeComponent = (isStatelessFunction) => {
       const componentName = utils.makeComponentName(config.name);
@@ -69,7 +74,7 @@ module.exports = class extends Generator {
       config.stylesImportPath = `./${fileName}.styles.ts`;
 
       // If it needs its own directory then it will need a root index file too.
-      if (this.config.shouldMakeDirectory) {
+      if (this.answers.shouldMakeDirectory) {
         this.fs.copyTpl(
           this.templatePath('index.ts'),
           this.destinationPath(`${path}/index.ts`),
@@ -101,7 +106,7 @@ module.exports = class extends Generator {
       );
     };
 
-    switch (this.fileType) {
+    switch (config.fileType) {
       case 'component':
         writeComponent();
         break;
@@ -114,7 +119,7 @@ module.exports = class extends Generator {
 
   end() {
     const showImportComponentSnippet = () => {
-      const componentName = this.config.vars.componentName;
+      const componentName = this.answers.vars.componentName;
 
       this.log(
         chalk.white(`\n// Export component (e.. from component's index.ts).`)
@@ -122,7 +127,7 @@ module.exports = class extends Generator {
       this.log(
         `${chalk.magenta('export')} {\n` +
           `  ${componentName},\n` +
-          `} ${chalk.magenta('from')} ${chalk.cyan(`'./${this.config.name}'`)};`
+          `} ${chalk.magenta('from')} ${chalk.cyan(`'./${this.answers.name}'`)};`
       );
     };
 

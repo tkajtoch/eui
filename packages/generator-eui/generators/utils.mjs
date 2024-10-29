@@ -1,4 +1,4 @@
-function makeComponentName(str, usePrefix = true) {
+export function makeComponentName(str, usePrefix = true) {
   const words = str.split('_');
 
   const componentName = words.map(function(word) {
@@ -8,28 +8,21 @@ function makeComponentName(str, usePrefix = true) {
   return `${usePrefix ? 'Eui' : ''}${componentName}`;
 }
 
-function lowerCaseFirstLetter(str) {
+export function lowerCaseFirstLetter(str) {
   return str.replace(/\w\S*/g, function(txt) {
     return txt.charAt(0).toLowerCase() + txt.substr(1);
   });
 }
 
-function upperCaseFirstLetter(str) {
+export function upperCaseFirstLetter(str) {
   return str.replace(/\w\S*/g, function(txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1);
   });
 }
 
-function addDirectoryToPath(path, dirName, shouldMakeDirectory) {
+export function addDirectoryToPath(path, dirName, shouldMakeDirectory) {
   if (shouldMakeDirectory) {
     return path + '/' + dirName;
   }
   return path;
 }
-
-module.exports = {
-  makeComponentName: makeComponentName,
-  lowerCaseFirstLetter: lowerCaseFirstLetter,
-  upperCaseFirstLetter: upperCaseFirstLetter,
-  addDirectoryToPath: addDirectoryToPath,
-};

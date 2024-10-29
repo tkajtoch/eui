@@ -6,22 +6,26 @@
  * Side Public License, v 1.
  */
 
-const chalk = require('chalk');
-const Generator = require('yeoman-generator');
+import path from 'node:path';
+import chalk from 'chalk';
+import Generator from 'yeoman-generator';
 
 const CHANGELOG_DIRECTORY = 'changelogs/upcoming';
 
-module.exports = class extends Generator {
+export default class extends Generator {
   constructor(args, options) {
     super(args, options);
 
     // This makes the pull request ID a required argument, e.g. `yarn yo-changelog 5555`
     this.argument('pullRequestId', { required: true });
 
-    this.fileName = `${CHANGELOG_DIRECTORY}/${this.options.pullRequestId}.md`;
+    this.fileName = path.join(
+      CHANGELOG_DIRECTORY,
+      `${this.options.pullRequestId}.md`
+    );
   }
 
-  prompting() {
+  async prompting() {
     const prompts = [
       {
         message: 'Does your PR contain features or enhancements?',
@@ -61,18 +65,14 @@ module.exports = class extends Generator {
       },
     ];
 
-    return this.prompt(prompts).then((answers) => {
-      this.config = answers;
-    });
+    this.answers = await this.prompt(prompts);
   }
 
   writing() {
-    const vars = this.config;
-
     this.fs.copyTpl(
       this.templatePath('changelog.md'),
       this.destinationPath(this.fileName),
-      vars
+      this.answers
     );
   }
 
@@ -81,4 +81,4 @@ module.exports = class extends Generator {
     this.log(chalk.bold(`${this.fileName} created`));
     this.log('------------------------------------------------');
   }
-};
+}
