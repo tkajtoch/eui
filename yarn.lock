@@ -5714,17 +5714,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@elastic/eui-changelog-tools@workspace:packages/changelog-tools":
-  version: 0.0.0-use.local
-  resolution: "@elastic/eui-changelog-tools@workspace:packages/changelog-tools"
-  dependencies:
-    chalk: "npm:^5.3.0"
-    glob: "npm:^11.0.0"
-    rimraf: "npm:^6.0.1"
-    yeoman-generator: "npm:^7.3.3"
-  languageName: unknown
-  linkType: soft
-
 "@elastic/eui-docgen@workspace:^, @elastic/eui-docgen@workspace:packages/eui-docgen":
   version: 0.0.0-use.local
   resolution: "@elastic/eui-docgen@workspace:packages/eui-docgen"
@@ -5777,9 +5766,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@elastic/eui-monorepo@workspace:."
   dependencies:
+    glob: "npm:^11.0.0"
     lerna: "npm:^8.1.8"
     mem-fs: "npm:^4.1.1"
     pre-push: "npm:^0.1.4"
+    rimraf: "npm:^6.0.1"
+    ts-node: "npm:^10.9.2"
   languageName: unknown
   linkType: soft
 
