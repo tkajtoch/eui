@@ -14,7 +14,8 @@
     "lint-es": "eslint --cache src/**/*.ts --max-warnings 0",
     "lint-sass": "yarn stylelint \"**/*.scss\" --quiet-deprecation-warnings",
     "test": "jest",
-    "pre-push": "yarn lint && yarn test"
+    "pre-push": "yarn lint && yarn test",
+    "yo-changelog": "yo @elastic/eui:changelog"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.5",
+    "@elastic/generator-eui": "workspace:^",
     "@emotion/react": "^11.11.0",
     "@types/jest": "^29.5.12",
     "@types/prettier": "2.7.3",
@@ -50,7 +52,8 @@
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
-    "typescript": "4.5.3"
+    "typescript": "4.5.3",
+    "yo": "^5.0.0"
   },
   "peerDependencies": {
     "@emotion/react": "11.x",

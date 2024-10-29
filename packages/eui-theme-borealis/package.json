@@ -11,7 +11,8 @@
     "lint-es": "eslint --cache src/**/*.ts --max-warnings 0",
     "lint-sass": "yarn stylelint \"**/*.scss\" --quiet-deprecation-warnings",
     "test": "jest",
-    "pre-push": "yarn build:workspaces && yarn lint && yarn test"
+    "pre-push": "yarn build:workspaces && yarn lint && yarn test",
+    "yo-changelog": "yo @elastic/eui:changelog"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "private": true,
   "devDependencies": {
     "@elastic/eui-theme-common": "workspace:^",
+    "@elastic/generator-eui": "workspace:^",
     "@types/jest": "^29.5.12",
     "@types/prettier": "2.7.3",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
@@ -37,7 +39,8 @@
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "yo": "^5.0.0"
   },
   "peerDependencies": {
     "@elastic/eui-theme-common": "0.0.1"
