@@ -13,10 +13,7 @@ import { findTestSubject, requiredProps } from '../../test';
 import { render } from '../../test/rtl';
 import { shouldRenderCustomStyles } from '../../test/internal';
 import { keys } from '../../services';
-import {
-  renderCellValueRowAndColumnCount,
-  renderCellRowAsValue,
-} from './data_grid_test_utils';
+import { renderCellValueRowAndColumnCount } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
 
 // Mock the cell popover (TODO: Move failing tests to Cypress and remove need for mock?)
@@ -26,19 +23,6 @@ jest.mock('../popover', () => ({
     <div data-test-subj="euiDataGridExpansionPopover">{children}</div>
   ),
 }));
-
-function extractRowHeights(datagrid: ReactWrapper) {
-  return (
-    findTestSubject(datagrid, 'dataGridRowCell') as ReactWrapper<any>
-  ).reduce((heights: { [key: string]: number }, cell) => {
-    const cellProps = cell.props();
-    const cellContentProps = cell
-      .find('[data-test-subj="cell-content"]')
-      .props() as any;
-    heights[cellContentProps.rowIndex] = parseFloat(cellProps.style.height);
-    return heights;
-  }, {});
-}
 
 expect.extend({
   toBeEuiPopover(received: ReactWrapper) {
@@ -360,99 +344,6 @@ describe('EuiDataGrid', () => {
       expect(alertFn).toHaveBeenCalledWith(1, 'A');
       findTestSubject(component, 'happyActionPopover').simulate('click');
       expect(happyFn).toHaveBeenCalledWith(1, 'A');
-    });
-  });
-
-  describe('rowHeightsOptions', () => {
-    it('all row heights options applied correctly', async () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'Column 1' }, { id: 'Column 2' }]}
-          columnVisibility={{
-            visibleColumns: ['Column 1', 'Column 2'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={3}
-          renderCellValue={() => 'value'}
-          rowHeightsOptions={{
-            defaultHeight: 50,
-            rowHeights: {
-              0: 70,
-              1: {
-                lineCount: 3,
-              },
-            },
-          }}
-        />
-      );
-
-      const cellHeights = extractRowHeights(component);
-      expect(cellHeights).toEqual({
-        0: 70,
-        1: 34,
-        2: 50,
-      });
-    });
-
-    it('render cells with correct height during pagination', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-label="test grid"
-          columns={[{ id: 'Column' }]}
-          columnVisibility={{
-            visibleColumns: ['Column'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={8}
-          renderCellValue={renderCellRowAsValue}
-          rowHeightsOptions={{
-            defaultHeight: 50,
-            rowHeights: {
-              0: 70,
-              1: {
-                lineCount: 3,
-              },
-            },
-          }}
-          pagination={{
-            pageIndex: 0,
-            pageSize: 3,
-            pageSizeOptions: [3, 6, 10],
-            onChangePage: jest.fn((pageIndex) => {
-              const pagination = component.props().pagination;
-              component.setProps({
-                pagination: { ...pagination, pageIndex },
-              });
-            }),
-            onChangeItemsPerPage: jest.fn(),
-          }}
-        />
-      );
-
-      expect(extractRowHeights(component)).toEqual({
-        0: 70,
-        1: 34,
-        2: 50,
-      });
-
-      findTestSubject(component, 'pagination-button-next').simulate('click');
-
-      expect(extractRowHeights(component)).toEqual({
-        3: 50,
-        4: 50,
-        5: 50,
-      });
-
-      findTestSubject(component, 'pagination-button-previous').simulate(
-        'click'
-      );
-
-      expect(extractRowHeights(component)).toEqual({
-        0: 70,
-        1: 34,
-        2: 50,
-      });
     });
   });
 

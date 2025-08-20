@@ -177,3 +177,16 @@ export const renderCellValueRowAndColumnCount: RenderCellValue = ({
 }) => `${rowIndex}, ${columnId}`;
 
 export const renderCellRowAsValue: RenderCellValue = ({ rowIndex }) => rowIndex;
+
+export function extractRowHeights(datagrid: ReactWrapper) {
+  return (
+    findTestSubject(datagrid, 'dataGridRowCell') as ReactWrapper<any>
+  ).reduce((heights: { [key: string]: number }, cell) => {
+    const cellProps = cell.props();
+    const cellContentProps = cell
+      .find('[data-test-subj="cell-content"]')
+      .props() as any;
+    heights[cellContentProps.rowIndex] = parseFloat(cellProps.style.height);
+    return heights;
+  }, {});
+}
