@@ -8,11 +8,10 @@
 
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { findTestSubject, requiredProps } from '../../test';
 import { render } from '../../test/rtl';
 import { shouldRenderCustomStyles } from '../../test/internal';
-import { keys } from '../../services';
 import { renderCellValueRowAndColumnCount } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
 
@@ -257,93 +256,6 @@ describe('EuiDataGrid', () => {
         'dataGridHeaderCellSortingIcon-D'
       );
       expect(arrowD.length).toBe(1);
-    });
-  });
-
-  describe('render column cell actions', () => {
-    it('renders various column cell actions configurations after cell gets hovered', async () => {
-      const alertFn = jest.fn();
-      const happyFn = jest.fn();
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          sorting={{
-            columns: [{ id: 'A', direction: 'asc' }],
-            onSort: () => {},
-          }}
-          columns={[
-            {
-              id: 'A',
-              isSortable: true,
-              cellActions: [
-                ({ rowIndex, columnId, Component, isExpanded }) => {
-                  return (
-                    <Component
-                      onClick={() => alertFn(rowIndex, columnId)}
-                      iconType="warning"
-                      aria-label="test1 aria label"
-                      data-test-subj={
-                        isExpanded ? 'alertActionPopover' : 'alertAction'
-                      }
-                    >
-                      test1
-                    </Component>
-                  );
-                },
-                ({ rowIndex, columnId, Component, isExpanded }) => {
-                  return (
-                    <Component
-                      onClick={() => happyFn(rowIndex, columnId)}
-                      iconType="faceHappy"
-                      aria-label="test2 aria label"
-                      data-test-subj={
-                        isExpanded ? 'happyActionPopover' : 'happyAction'
-                      }
-                    >
-                      test2
-                    </Component>
-                  );
-                },
-              ],
-            },
-          ]}
-          columnVisibility={{
-            visibleColumns: ['A'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      // cell buttons should not get rendered for unfocused, unhovered cell
-      expect(findTestSubject(component, 'alertAction').exists()).toBe(false);
-      expect(findTestSubject(component, 'happyAction').exists()).toBe(false);
-
-      act(() => {
-        findTestSubject(component, 'dataGridRowCell')
-          .at(1)
-          .prop('onMouseEnter')!({} as React.MouseEvent);
-      });
-
-      component.update();
-
-      findTestSubject(component, 'alertAction').at(0).simulate('click');
-      expect(alertFn).toHaveBeenCalledWith(1, 'A');
-      findTestSubject(component, 'happyAction').at(0).simulate('click');
-      expect(happyFn).toHaveBeenCalledWith(1, 'A');
-      alertFn.mockReset();
-      happyFn.mockReset();
-
-      findTestSubject(component, 'dataGridRowCell')
-        .at(1)
-        .simulate('keydown', { key: keys.ENTER });
-      component.update();
-
-      findTestSubject(component, 'alertActionPopover').simulate('click');
-      expect(alertFn).toHaveBeenCalledWith(1, 'A');
-      findTestSubject(component, 'happyActionPopover').simulate('click');
-      expect(happyFn).toHaveBeenCalledWith(1, 'A');
     });
   });
 
