@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pagination renders 1`] = `
+<div
+  class="euiFlexGroup eui-xScroll emotion-euiFlexGroup-wrap-s-spaceBetween-center-row"
+>
+  <div
+    class="euiFlexItem emotion-euiFlexItem-growZero"
+  >
+    <div
+      class="euiPopover emotion-euiPopover-inline-block"
+    >
+      <button
+        class="euiButtonEmpty emotion-euiButtonDisplay-euiButtonEmpty-xs-empty-text"
+        data-test-subj="tablePaginationPopoverButton"
+        type="button"
+      >
+        <span
+          class="euiButtonEmpty__content emotion-euiButtonDisplayContent"
+        >
+          <span
+            class="eui-textTruncate euiButtonEmpty__text"
+          >
+            Rows per page: 6
+          </span>
+          <span
+            color="inherit"
+            data-euiicon-type="arrowDown"
+          />
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="euiFlexItem emotion-euiFlexItem-growZero"
+  >
+    <nav
+      aria-label="Pagination for preceding grid: test grid"
+      class="euiPagination emotion-euiPagination"
+    >
+      <span
+        aria-atomic="true"
+        aria-relevant="additions text"
+        class="emotion-euiScreenReaderOnly"
+        role="status"
+      >
+        Page 2 of 2
+      </span>
+      <a
+        aria-controls="generated-id"
+        aria-label="Previous page"
+        class="euiButtonIcon euiPaginationArrowButton emotion-euiButtonIcon-xs-empty-text-euiPaginationButton"
+        data-test-subj="pagination-button-previous"
+        href="#generated-id"
+        rel="noreferrer"
+        title="Previous page"
+      >
+        <span
+          aria-hidden="true"
+          class="euiButtonIcon__icon"
+          color="inherit"
+          data-euiicon-type="arrowLeft"
+        />
+      </a>
+      <ul
+        class="euiPagination__list emotion-euiPagination__list"
+      >
+        <li
+          class="euiPagination__item"
+        >
+          <a
+            aria-controls="generated-id"
+            aria-label="Page 1 of 2"
+            class="euiButtonEmpty euiPaginationButton emotion-euiButtonDisplay-euiButtonEmpty-s-empty-text-euiPaginationButton"
+            data-test-subj="pagination-button-0"
+            href="#generated-id"
+            rel="noreferrer"
+          >
+            <span
+              class="euiButtonEmpty__content emotion-euiButtonDisplayContent"
+            >
+              <span
+                class="eui-textTruncate euiButtonEmpty__text"
+              >
+                1
+              </span>
+            </span>
+          </a>
+        </li>
+        <li
+          class="euiPagination__item"
+        >
+          <button
+            aria-controls="generated-id"
+            aria-current="page"
+            aria-label="Page 2 of 2"
+            class="euiButtonEmpty euiPaginationButton emotion-euiButtonDisplay-euiButtonEmpty-s-empty-disabled-isDisabled-euiPaginationButton-isActive"
+            data-test-subj="pagination-button-1"
+            disabled=""
+            type="button"
+          >
+            <span
+              class="euiButtonEmpty__content emotion-euiButtonDisplayContent"
+            >
+              <span
+                class="eui-textTruncate euiButtonEmpty__text"
+              >
+                2
+              </span>
+            </span>
+          </button>
+        </li>
+      </ul>
+      <button
+        aria-label="Next page"
+        class="euiButtonIcon euiPaginationArrowButton emotion-euiButtonIcon-xs-empty-disabled-isDisabled-euiPaginationButton"
+        data-test-subj="pagination-button-next"
+        disabled=""
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="euiButtonIcon__icon"
+          color="inherit"
+          data-euiicon-type="arrowRight"
+        />
+      </button>
+    </nav>
+  </div>
+</div>
+`;
