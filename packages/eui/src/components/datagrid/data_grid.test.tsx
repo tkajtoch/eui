@@ -13,9 +13,11 @@ import { findTestSubject, requiredProps } from '../../test';
 import { render } from '../../test/rtl';
 import { shouldRenderCustomStyles } from '../../test/internal';
 import { keys } from '../../services';
-
-import type { EuiDataGridProps, RenderCellValue } from './data_grid_types';
-import { EuiDataGrid } from './';
+import {
+  renderCellValueRowAndColumnCount,
+  renderCellRowAsValue,
+} from './data_grid_test_utils';
+import { EuiDataGrid } from './data_grid';
 
 // Mock the cell popover (TODO: Move failing tests to Cypress and remove need for mock?)
 jest.mock('../popover', () => ({
@@ -24,32 +26,6 @@ jest.mock('../popover', () => ({
     <div data-test-subj="euiDataGridExpansionPopover">{children}</div>
   ),
 }));
-
-function extractGridData(datagrid: ReactWrapper<EuiDataGridProps>) {
-  const rows: string[][] = [];
-
-  const headerCells = findTestSubject(datagrid, 'dataGridHeaderCell', '|=');
-  const headerRow: string[] = [];
-  headerCells.forEach((cell: any) =>
-    headerRow.push(cell.find('div.euiDataGridHeaderCell__content').text())
-  );
-  rows.push(headerRow);
-
-  // reduce the virtualized grid of cells into rows
-  const columnCount = datagrid.prop('columnVisibility').visibleColumns.length;
-  const gridCells = findTestSubject(datagrid, 'dataGridRowCell');
-  const visibleRowsCount = gridCells.length / columnCount;
-  for (let i = 0; i < visibleRowsCount; i++) {
-    const rowContent: string[] = [];
-    for (let j = i * columnCount; j < (i + 1) * columnCount; j++) {
-      const cell = gridCells.at(j);
-      rowContent.push(cell.find('[data-test-subj="cell-content"]').text());
-    }
-    rows.push(rowContent);
-  }
-
-  return rows;
-}
 
 function extractRowHeights(datagrid: ReactWrapper) {
   return (
@@ -62,96 +38,6 @@ function extractRowHeights(datagrid: ReactWrapper) {
     heights[cellContentProps.rowIndex] = parseFloat(cellProps.style.height);
     return heights;
   }, {});
-}
-
-function openColumnSorterSelection(datagrid: ReactWrapper) {
-  let columnSelectionPopover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopoverColumnSelection"]'
-  );
-  expect(columnSelectionPopover).not.euiPopoverToBeOpen();
-  act(() => {
-    columnSelectionPopover
-      .find('button[data-test-subj="dataGridColumnSortingSelectionButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  columnSelectionPopover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopoverColumnSelection"]'
-  );
-  expect(columnSelectionPopover).euiPopoverToBeOpen();
-
-  return columnSelectionPopover;
-}
-
-function closeColumnSorterSelection(datagrid: ReactWrapper) {
-  let columnSelectionPopover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopoverColumnSelection"]'
-  );
-  // popover will go away if all of the columns are selected
-  if (columnSelectionPopover.length > 0) {
-    expect(columnSelectionPopover).euiPopoverToBeOpen();
-
-    act(() => {
-      columnSelectionPopover
-        .find('button[data-test-subj="dataGridColumnSortingSelectionButton"]')
-        .simulate('click');
-    });
-
-    datagrid.update();
-
-    columnSelectionPopover = datagrid.find(
-      'EuiPopover[data-test-subj="dataGridColumnSortingPopoverColumnSelection"]'
-    );
-    expect(columnSelectionPopover).not.euiPopoverToBeOpen();
-  }
-
-  return columnSelectionPopover;
-}
-
-function openColumnSorter(datagrid: ReactWrapper) {
-  let popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSortingButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  return popover;
-}
-
-function closeColumnSorter(datagrid: ReactWrapper) {
-  let popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSortingButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSortingPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-
-  return popover;
 }
 
 expect.extend({
@@ -197,57 +83,6 @@ declare global {
   }
 }
 
-function openColumnSelector(datagrid: ReactWrapper) {
-  let popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSelectorButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  return popover;
-}
-
-function closeColumnSelector(datagrid: ReactWrapper) {
-  let popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSelectorButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-
-  return popover;
-}
-
-const renderCellValueRowAndColumnCount: RenderCellValue = ({
-  rowIndex,
-  columnId,
-}) => `${rowIndex}, ${columnId}`;
-
-const renderCellRowAsValue: RenderCellValue = ({ rowIndex }) => rowIndex;
-
 describe('EuiDataGrid', () => {
   // Mock requestAnimationFrame to run immediately
   jest
@@ -263,185 +98,6 @@ describe('EuiDataGrid', () => {
       renderCellValue={() => null}
     />
   );
-
-  describe('updating column definitions', () => {
-    it('renders the new set', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'A' }, { id: 'B' }]}
-          columnVisibility={{
-            visibleColumns: ['A', 'B'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      expect(extractGridData(component)).toEqual([
-        ['A', 'B'],
-        ['0, A', '0, B'],
-        ['1, A', '1, B'],
-      ]);
-
-      component.setProps({
-        columns: [{ id: 'A' }, { id: 'C' }],
-        columnVisibility: {
-          visibleColumns: ['A', 'C'],
-          setVisibleColumns: () => {},
-        },
-      });
-
-      expect(extractGridData(component)).toEqual([
-        ['A', 'C'],
-        ['0, A', '0, C'],
-        ['1, A', '1, C'],
-      ]);
-    });
-
-    it('"Hide fields" updates', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'A' }, { id: 'B' }]}
-          columnVisibility={{
-            visibleColumns: ['A', 'B'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      // verify original column list is A, B
-      let popover = openColumnSelector(component);
-      expect(
-        popover
-          .find('div.euiDataGridColumnSelector__item')
-          .map((item) => item.text())
-      ).toEqual(['A', 'B']);
-      closeColumnSelector(component);
-
-      // update columns
-      component.setProps({
-        columns: [{ id: 'A' }, { id: 'C' }],
-        columnVisibility: {
-          visibleColumns: ['A', 'C'],
-          setVisibleColumns: () => {},
-        },
-      });
-
-      // test that the column list updated to A,C
-      popover = openColumnSelector(component);
-      expect(
-        popover
-          .find('div.euiDataGridColumnSelector__item')
-          .map((item) => item.text())
-      ).toEqual(['A', 'C']);
-      closeColumnSelector(component);
-    });
-
-    it('"Sort fields" updates', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'A' }, { id: 'B' }]}
-          columnVisibility={{
-            visibleColumns: ['A', 'B'],
-            setVisibleColumns: () => {},
-          }}
-          sorting={{
-            onSort: () => {},
-            columns: [],
-          }}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      // verify original column list is A, B
-      openColumnSorter(component);
-      let popover = openColumnSorterSelection(component);
-      expect(
-        popover
-          .find('button.euiDataGridColumnSorting__field')
-          .map((item) => item.text())
-      ).toEqual(['A', 'B']);
-      closeColumnSorterSelection(component);
-      closeColumnSorter(component);
-
-      // update columns
-      component.setProps({
-        columns: [{ id: 'A' }, { id: 'C' }],
-        columnVisibility: {
-          visibleColumns: ['A', 'C'],
-          setVisibleColumns: () => {},
-        },
-      });
-
-      // test that the column list updated to A,C
-      openColumnSorter(component);
-      popover = openColumnSorterSelection(component);
-      expect(
-        popover
-          .find('button.euiDataGridColumnSorting__field')
-          .map((item) => item.text())
-      ).toEqual(['A', 'C']);
-      closeColumnSorterSelection(component);
-      closeColumnSorter(component);
-    });
-
-    it('"Sort fields" button text updates', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'A' }, { id: 'B' }]}
-          columnVisibility={{
-            visibleColumns: ['A', 'B'],
-            setVisibleColumns: () => {},
-          }}
-          sorting={{
-            onSort: () => {},
-            columns: [],
-          }}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      // Get column sort count
-      const getBadgeText = () => {
-        const button = component.find(
-          'EuiButtonEmpty[data-test-subj="dataGridColumnSortingButton"]'
-        );
-        const badge = button.find('span.euiDataGridToolbarControl__badge');
-        return badge.length ? badge.text() : false;
-      };
-      expect(getBadgeText()).toBeFalsy();
-
-      // Update sorted columns
-      component.setProps({
-        sorting: {
-          columns: [{ id: 'A', direction: 'asc' }],
-          onSort: () => {},
-        },
-      });
-      expect(getBadgeText()).toEqual('1');
-
-      // Update sorted columns again
-      component.setProps({
-        sorting: {
-          columns: [
-            { id: 'A', direction: 'asc' },
-            { id: 'B', direction: 'asc' },
-          ],
-          onSort: () => {},
-        },
-      });
-      expect(getBadgeText()).toEqual('2');
-    });
-  });
 
   describe('render column actions', () => {
     it('renders various column actions configurations', () => {
