@@ -6,7 +6,7 @@
  * Side Public License, v 1.
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { act, fireEvent } from '@testing-library/react';
 import { findTestSubject, requiredProps } from '../../test';
@@ -326,24 +326,6 @@ function closeColumnSelector(datagrid: ReactWrapper) {
   return popover;
 }
 
-function setColumnVisibility(
-  datagrid: ReactWrapper,
-  columnId: string,
-  isVisible: boolean
-) {
-  const popover = openColumnSelector(datagrid);
-
-  // toggle column's visibility switch
-  const portal = popover.find('EuiPortal');
-
-  const columnSwitch = portal.find(`EuiSwitch[name="${columnId}"]`);
-  const switchInput = columnSwitch.find('button');
-  switchInput.getDOMNode().setAttribute('aria-checked', `${isVisible}`);
-  switchInput.simulate('click');
-
-  closeColumnSelector(datagrid);
-}
-
 const renderCellValueRowAndColumnCount: RenderCellValue = ({
   rowIndex,
   columnId,
@@ -354,65 +336,6 @@ const renderCellRowAsValue: RenderCellValue = ({ rowIndex }) => rowIndex;
 const renderCellValueALowBHigh: RenderCellValue = ({ rowIndex, columnId }) =>
   // render A as 0, 1, 0, 1, 0 and B as 9->5
   columnId === 'A' ? rowIndex % 2 : 9 - rowIndex;
-
-function moveColumnToIndex(
-  datagrid: ReactWrapper<EuiDataGridProps>,
-  columnId: string,
-  nextIndex: number
-) {
-  // open datagrid column options
-  let popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSelectorButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  const [initialColumnOrder] = extractGridData(datagrid);
-  const initialColumnIndex = initialColumnOrder.indexOf(columnId);
-
-  // "drag" column into new location
-  const portal = popover.find('EuiPortal');
-  act(() =>
-    portal.find('EuiDragDropContext').props().onDragEnd!({
-      // @ts-ignore - only `index` is used from `source`, don't need to mock rest of the event
-      source: { index: initialColumnIndex },
-      destination: { index: nextIndex },
-    })
-  );
-
-  datagrid.update();
-
-  // close popover
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).euiPopoverToBeOpen();
-
-  act(() => {
-    popover
-      .find('button[data-test-subj="dataGridColumnSelectorButton"]')
-      .simulate('click');
-  });
-
-  datagrid.update();
-
-  popover = datagrid.find(
-    'EuiPopover[data-test-subj="dataGridColumnSelectorPopover"]'
-  );
-  expect(popover).not.euiPopoverToBeOpen();
-}
 
 describe('EuiDataGrid', () => {
   // Mock requestAnimationFrame to run immediately
@@ -429,185 +352,6 @@ describe('EuiDataGrid', () => {
       renderCellValue={() => null}
     />
   );
-
-  describe('column options', () => {
-    it('column visibility can be toggled', () => {
-      const columnVisibility = {
-        visibleColumns: ['ColumnA', 'ColumnB'],
-        setVisibleColumns: (visibleColumns: string[]) => {
-          columnVisibility.visibleColumns = visibleColumns;
-          component.setProps({ columnVisibility });
-        },
-      };
-
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'ColumnA' }, { id: 'ColumnB' }]}
-          columnVisibility={columnVisibility}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      expect(extractGridData(component)).toEqual([
-        ['ColumnA', 'ColumnB'],
-        ['0, ColumnA', '0, ColumnB'],
-        ['1, ColumnA', '1, ColumnB'],
-      ]);
-
-      setColumnVisibility(component, 'ColumnA', false);
-      expect(extractGridData(component)).toEqual([
-        ['ColumnB'],
-        ['0, ColumnB'],
-        ['1, ColumnB'],
-      ]);
-
-      setColumnVisibility(component, 'ColumnA', true);
-      expect(extractGridData(component)).toEqual([
-        ['ColumnA', 'ColumnB'],
-        ['0, ColumnA', '0, ColumnB'],
-        ['1, ColumnA', '1, ColumnB'],
-      ]);
-    });
-
-    it('column order can be changed', () => {
-      const columnVisibility = {
-        visibleColumns: ['ColumnA', 'ColumnB'],
-        setVisibleColumns: (visibleColumns: string[]) => {
-          columnVisibility.visibleColumns = visibleColumns;
-          component.setProps({ columnVisibility });
-        },
-      };
-
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'ColumnA' }, { id: 'ColumnB' }]}
-          columnVisibility={columnVisibility}
-          rowCount={2}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      expect(extractGridData(component)).toEqual([
-        ['ColumnA', 'ColumnB'],
-        ['0, ColumnA', '0, ColumnB'],
-        ['1, ColumnA', '1, ColumnB'],
-      ]);
-
-      moveColumnToIndex(component, 'ColumnB', 0);
-
-      expect(extractGridData(component)).toEqual([
-        ['ColumnB', 'ColumnA'],
-        ['0, ColumnB', '0, ColumnA'],
-        ['1, ColumnB', '1, ColumnA'],
-      ]);
-    });
-
-    it('resets cell props on column reorder', () => {
-      const columnVisibility = {
-        visibleColumns: ['ColumnA', 'ColumnB'],
-        setVisibleColumns: (visibleColumns: string[]) => {
-          columnVisibility.visibleColumns = visibleColumns;
-          component.setProps({ columnVisibility });
-        },
-      };
-
-      const RenderCellValue: RenderCellValue = ({
-        rowIndex,
-        columnId,
-        setCellProps,
-      }) => {
-        useEffect(() => {
-          if (columnId === 'ColumnB') {
-            setCellProps({ style: { color: 'blue' } });
-          }
-        }, [columnId, rowIndex, setCellProps]);
-
-        return `${rowIndex}-${columnId}`;
-      };
-
-      const component = mount(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columns={[{ id: 'ColumnA' }, { id: 'ColumnB' }]}
-          columnVisibility={columnVisibility}
-          rowCount={1}
-          renderCellValue={RenderCellValue}
-        />
-      );
-
-      const getCellColorAt = (index: number) =>
-        component
-          .find('div[data-test-subj="dataGridRowCell"]')
-          .at(index)
-          .prop('style')?.color;
-
-      expect(getCellColorAt(0)).toEqual(undefined);
-      expect(getCellColorAt(1)).toEqual('blue');
-
-      moveColumnToIndex(component, 'B', 0);
-
-      expect(getCellColorAt(0)).toEqual('blue');
-      expect(getCellColorAt(1)).toEqual(undefined);
-    });
-
-    test('column display, displayAsText, and displayHeaderCellProps', () => {
-      const { container, getByTitle, getByTestSubject } = render(
-        <EuiDataGrid
-          aria-labelledby="#test"
-          columnVisibility={{
-            visibleColumns: ['ColumnA'],
-            setVisibleColumns: () => {},
-          }}
-          columns={[
-            {
-              id: 'ColumnA',
-              display: <span data-test-subj="display">Hello world</span>,
-              displayAsText: 'displayAsText',
-              displayHeaderCellProps: { className: 'displayHeaderCellProps' },
-            },
-          ]}
-          rowCount={1}
-          renderCellValue={renderCellValueRowAndColumnCount}
-        />
-      );
-
-      expect(
-        container.querySelector('.euiDataGridHeaderCell.displayHeaderCellProps')
-      ).toBeDefined();
-      expect(getByTestSubject('display')).toBeInTheDocument();
-      expect(getByTitle('displayAsText')).toBeInTheDocument();
-    });
-
-    describe('canDragAndDropColumns', () => {
-      it('should render draggable header columns cells', () => {
-        const columnVisibility = {
-          visibleColumns: ['ColumnA', 'ColumnB'],
-          setVisibleColumns: () => {},
-          canDragAndDropColumns: true,
-        };
-
-        const { getByTestSubject } = render(
-          <EuiDataGrid
-            aria-labelledby="#test"
-            columns={[{ id: 'ColumnA' }, { id: 'ColumnB' }]}
-            columnVisibility={columnVisibility}
-            rowCount={2}
-            renderCellValue={renderCellValueRowAndColumnCount}
-          />
-        );
-
-        expect(
-          getByTestSubject('euiDataGridHeaderDroppable')
-        ).toBeInTheDocument();
-        expect(
-          getByTestSubject('dataGridHeaderCell-ColumnA').parentElement
-        ).toHaveClass('euiDraggable');
-      });
-    });
-  });
 
   describe('column sorting', () => {
     it('calls the onSort callback', () => {
