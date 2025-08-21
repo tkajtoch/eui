@@ -9,7 +9,43 @@
 import { ReactWrapper } from 'enzyme';
 import type { EuiDataGridProps, RenderCellValue } from './data_grid_types';
 import { findTestSubject } from '../../test';
+import { within } from '../../test/rtl';
 import { act } from '@testing-library/react';
+
+export function extractGridDataRTL(container: HTMLElement) {
+  const withinContainer = within(container);
+  const rows: string[][] = [];
+
+  const headerRow: string[] = [];
+  withinContainer
+    .getAllByTestSubject(/^dataGridHeaderCell-/)
+    .forEach((cell) => {
+      const content = cell.querySelector('.euiDataGridHeaderCell__content');
+      headerRow.push(content?.textContent || '');
+    });
+  rows.push(headerRow);
+
+  // reduce the virtualized grid of cells into rows
+  const gridCells = withinContainer.getAllByTestSubject(/^dataGridRowCell/);
+  const numberOfRows = gridCells.length / headerRow.length;
+
+  // sanity check to confirm the total number of body cells is correct
+  expect(Number.isInteger(numberOfRows)).toBe(true);
+
+  for (let rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
+    const row: string[] = [];
+    for (let colindex = 0; colindex < headerRow.length; colindex++) {
+      const cellElement = gridCells[rowIndex * headerRow.length + colindex];
+      const contentElement = cellElement.querySelector(
+        '.euiDataGridRowCell__content'
+      );
+      row.push(contentElement?.textContent || '');
+    }
+    rows.push(row);
+  }
+
+  return rows;
+}
 
 export function extractGridData(datagrid: ReactWrapper<EuiDataGridProps>) {
   const rows: string[][] = [];

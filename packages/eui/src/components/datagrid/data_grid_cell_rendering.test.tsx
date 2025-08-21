@@ -7,37 +7,10 @@
  */
 
 import React, { useState } from 'react';
-import { mount, ReactWrapper } from 'enzyme';
 import { render } from '../../test/rtl';
-import type { EuiDataGridProps, RenderCellValue } from './data_grid_types';
+import type { RenderCellValue } from './data_grid_types';
+import { extractGridDataRTL } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
-import { findTestSubject } from '../../test';
-
-function extractGridData(datagrid: ReactWrapper<EuiDataGridProps>) {
-  const rows: string[][] = [];
-
-  const headerCells = findTestSubject(datagrid, 'dataGridHeaderCell', '|=');
-  const headerRow: string[] = [];
-  headerCells.forEach((cell: any) =>
-    headerRow.push(cell.find('div.euiDataGridHeaderCell__content').text())
-  );
-  rows.push(headerRow);
-
-  // reduce the virtualized grid of cells into rows
-  const columnCount = datagrid.prop('columnVisibility').visibleColumns.length;
-  const gridCells = findTestSubject(datagrid, 'dataGridRowCell');
-  const visibleRowsCount = gridCells.length / columnCount;
-  for (let i = 0; i < visibleRowsCount; i++) {
-    const rowContent: string[] = [];
-    for (let j = i * columnCount; j < (i + 1) * columnCount; j++) {
-      const cell = gridCells.at(j);
-      rowContent.push(cell.find('[data-test-subj="cell-content"]').text());
-    }
-    rows.push(rowContent);
-  }
-
-  return rows;
-}
 
 describe('cell rendering', () => {
   it('supports hooks', () => {
@@ -48,7 +21,7 @@ describe('cell rendering', () => {
       const [value] = useState(`Hello, Row ${rowIndex}-${columnId}!`);
       return <span>{value}</span>;
     };
-    const component = mount(
+    const { container } = render(
       <EuiDataGrid
         aria-label="test"
         columns={[{ id: 'Column 1' }, { id: 'Column 2' }]}
@@ -60,7 +33,8 @@ describe('cell rendering', () => {
         renderCellValue={RenderCellValueWithHooks}
       />
     );
-    expect(extractGridData(component)).toMatchInlineSnapshot(`
+
+    expect(extractGridDataRTL(container)).toMatchInlineSnapshot(`
         [
           [
             "Column 1",
