@@ -7,14 +7,13 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
-import { findTestSubject } from '../../test';
+import { render } from '../../test/rtl';
 import { renderCellValueRowAndColumnCount } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
 
 describe('render sorting arrows', () => {
   it('renders sorting arrows when direction is given', () => {
-    const component = mount(
+    const { getByTestSubject } = render(
       <EuiDataGrid
         aria-labelledby="#test"
         sorting={{
@@ -36,21 +35,17 @@ describe('render sorting arrows', () => {
         renderCellValue={renderCellValueRowAndColumnCount}
       />
     );
-    const arrowA = findTestSubject(
-      component,
-      'dataGridHeaderCellSortingIcon-A'
-    );
-    expect(arrowA.length).toBe(1);
 
-    const arrowB = findTestSubject(
-      component,
-      'dataGridHeaderCellSortingIcon-B'
-    );
-    expect(arrowB.length).toBe(1);
+    expect(
+      getByTestSubject('dataGridHeaderCellSortingIcon-A')
+    ).toBeInTheDocument();
+    expect(
+      getByTestSubject('dataGridHeaderCellSortingIcon-B')
+    ).toBeInTheDocument();
   });
 
   it('does not render the arrows if the column is not sorted', () => {
-    const component = mount(
+    const { queryByTestSubject } = render(
       <EuiDataGrid
         aria-labelledby="#test"
         sorting={{
@@ -79,15 +74,14 @@ describe('render sorting arrows', () => {
         renderCellValue={renderCellValueRowAndColumnCount}
       />
     );
-    const arrowC = findTestSubject(
-      component,
-      'dataGridHeaderCellSortingIcon-C'
-    );
-    expect(arrowC.length).toBe(0);
+
+    expect(
+      queryByTestSubject('dataGridHeaderCellSortingIcon-C')
+    ).not.toBeInTheDocument();
   });
 
   it('renders the icons if they are sorted but user is not allowed to perform any action', () => {
-    const component = mount(
+    const { getByTestSubject } = render(
       <EuiDataGrid
         aria-labelledby="#test"
         sorting={{
@@ -103,10 +97,9 @@ describe('render sorting arrows', () => {
         renderCellValue={renderCellValueRowAndColumnCount}
       />
     );
-    const arrowD = findTestSubject(
-      component,
-      'dataGridHeaderCellSortingIcon-D'
-    );
-    expect(arrowD.length).toBe(1);
+
+    expect(
+      getByTestSubject('dataGridHeaderCellSortingIcon-D')
+    ).toBeInTheDocument();
   });
 });
