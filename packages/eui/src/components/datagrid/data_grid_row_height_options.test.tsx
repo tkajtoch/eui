@@ -6,18 +6,18 @@
  * Side Public License, v 1.
  */
 
-import React from 'react';
-import { mount } from 'enzyme';
-import { findTestSubject } from '../../test';
+import React, { useState } from 'react';
+import { fireEvent } from '@testing-library/react';
+import { render } from '../../test/rtl';
 import {
-  extractRowHeights,
+  extractRowHeightsRTL,
   renderCellRowAsValue,
 } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
 
 describe('rowHeightsOptions', () => {
   it('all row heights options applied correctly', async () => {
-    const component = mount(
+    const { container } = render(
       <EuiDataGrid
         aria-labelledby="#test"
         columns={[{ id: 'Column 1' }, { id: 'Column 2' }]}
@@ -39,69 +39,72 @@ describe('rowHeightsOptions', () => {
       />
     );
 
-    const cellHeights = extractRowHeights(component);
+    const cellHeights = extractRowHeightsRTL(container);
     expect(cellHeights).toEqual({
-      0: 70,
-      1: 34,
-      2: 50,
+      0: '70px',
+      1: '34px',
+      2: '50px',
     });
   });
 
   it('render cells with correct height during pagination', () => {
-    const component = mount(
-      <EuiDataGrid
-        aria-label="test grid"
-        columns={[{ id: 'Column' }]}
-        columnVisibility={{
-          visibleColumns: ['Column'],
-          setVisibleColumns: () => {},
-        }}
-        rowCount={8}
-        renderCellValue={renderCellRowAsValue}
-        rowHeightsOptions={{
-          defaultHeight: 50,
-          rowHeights: {
-            0: 70,
-            1: {
-              lineCount: 3,
+    const Component = () => {
+      const [pageIndex, setPageIndex] = useState(0);
+
+      return (
+        <EuiDataGrid
+          aria-label="test grid"
+          columns={[{ id: 'Column' }]}
+          columnVisibility={{
+            visibleColumns: ['Column'],
+            setVisibleColumns: () => {},
+          }}
+          rowCount={8}
+          renderCellValue={renderCellRowAsValue}
+          rowHeightsOptions={{
+            defaultHeight: 50,
+            rowHeights: {
+              0: 70,
+              1: {
+                lineCount: 3,
+              },
             },
-          },
-        }}
-        pagination={{
-          pageIndex: 0,
-          pageSize: 3,
-          pageSizeOptions: [3, 6, 10],
-          onChangePage: jest.fn((pageIndex) => {
-            const pagination = component.props().pagination;
-            component.setProps({
-              pagination: { ...pagination, pageIndex },
-            });
-          }),
-          onChangeItemsPerPage: jest.fn(),
-        }}
-      />
-    );
+          }}
+          pagination={{
+            pageIndex,
+            pageSize: 3,
+            pageSizeOptions: [3, 6, 10],
+            onChangePage: (newIndex) => {
+              setPageIndex(newIndex);
+            },
+            onChangeItemsPerPage: jest.fn(),
+          }}
+        />
+      );
+    };
 
-    expect(extractRowHeights(component)).toEqual({
-      0: 70,
-      1: 34,
-      2: 50,
+    const { container, getByTestSubject } = render(<Component />);
+
+    expect(extractRowHeightsRTL(container)).toEqual({
+      0: '70px',
+      1: '34px',
+      2: '50px',
     });
 
-    findTestSubject(component, 'pagination-button-next').simulate('click');
+    fireEvent.click(getByTestSubject('pagination-button-next'));
 
-    expect(extractRowHeights(component)).toEqual({
-      3: 50,
-      4: 50,
-      5: 50,
+    expect(extractRowHeightsRTL(container)).toEqual({
+      3: '50px',
+      4: '50px',
+      5: '50px',
     });
 
-    findTestSubject(component, 'pagination-button-previous').simulate('click');
+    fireEvent.click(getByTestSubject('pagination-button-previous'));
 
-    expect(extractRowHeights(component)).toEqual({
-      0: 70,
-      1: 34,
-      2: 50,
+    expect(extractRowHeightsRTL(container)).toEqual({
+      0: '70px',
+      1: '34px',
+      2: '50px',
     });
   });
 });

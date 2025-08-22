@@ -214,15 +214,15 @@ export const renderCellValueRowAndColumnCount: RenderCellValue = ({
 
 export const renderCellRowAsValue: RenderCellValue = ({ rowIndex }) => rowIndex;
 
-export function extractRowHeights(datagrid: ReactWrapper) {
-  return (
-    findTestSubject(datagrid, 'dataGridRowCell') as ReactWrapper<any>
-  ).reduce((heights: { [key: string]: number }, cell) => {
-    const cellProps = cell.props();
-    const cellContentProps = cell
-      .find('[data-test-subj="cell-content"]')
-      .props() as any;
-    heights[cellContentProps.rowIndex] = parseFloat(cellProps.style.height);
+export function extractRowHeightsRTL(
+  container: HTMLElement
+): Record<number, string> {
+  const withinContainer = within(container);
+  const cells = withinContainer.getAllByTestSubject('dataGridRowCell');
+
+  return cells.reduce((heights, cell) => {
+    const rowIndex = parseInt(cell.dataset.gridcellRowIndex!, 10);
+    heights[rowIndex] = cell.style.height;
     return heights;
-  }, {});
+  }, {} as Record<number, string>);
 }
