@@ -6,44 +6,18 @@
  * Side Public License, v 1.
  */
 
-import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
-import { act } from '@testing-library/react';
-import { findTestSubject } from '../../test';
-import type { EuiDataGridProps, RenderCellValue } from './data_grid_types';
+import React, { useState } from 'react';
+import { fireEvent } from '@testing-library/react';
+import { render, within } from '../../test/rtl';
 import { EuiDataGrid } from './data_grid';
-
-const renderCellRowAsValue: RenderCellValue = ({ rowIndex }) => rowIndex;
-
-function extractGridData(datagrid: ReactWrapper<EuiDataGridProps>) {
-  const rows: string[][] = [];
-
-  const headerCells = findTestSubject(datagrid, 'dataGridHeaderCell', '|=');
-  const headerRow: string[] = [];
-  headerCells.forEach((cell: any) =>
-    headerRow.push(cell.find('div.euiDataGridHeaderCell__content').text())
-  );
-  rows.push(headerRow);
-
-  // reduce the virtualized grid of cells into rows
-  const columnCount = datagrid.prop('columnVisibility').visibleColumns.length;
-  const gridCells = findTestSubject(datagrid, 'dataGridRowCell');
-  const visibleRowsCount = gridCells.length / columnCount;
-  for (let i = 0; i < visibleRowsCount; i++) {
-    const rowContent: string[] = [];
-    for (let j = i * columnCount; j < (i + 1) * columnCount; j++) {
-      const cell = gridCells.at(j);
-      rowContent.push(cell.find('[data-test-subj="cell-content"]').text());
-    }
-    rows.push(rowContent);
-  }
-
-  return rows;
-}
+import {
+  extractGridDataRTL,
+  renderCellRowAsValue,
+} from './data_grid_test_utils';
 
 describe('pagination', () => {
   it('renders', () => {
-    const component = mount(
+    const { container } = render(
       <EuiDataGrid
         aria-label="test grid"
         columns={[{ id: 'Column' }]}
@@ -63,98 +37,112 @@ describe('pagination', () => {
       />
     );
 
-    expect(component.find('EuiTablePagination').render()).toMatchSnapshot();
+    const paginationWrapper = container.querySelector(
+      '.euiDataGrid__pagination'
+    );
+
+    expect(paginationWrapper).toMatchSnapshot();
   });
 
   describe('page navigation', () => {
     it('next button pages through content', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-label="test grid"
-          columns={[{ id: 'Column' }]}
-          columnVisibility={{
-            visibleColumns: ['Column'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={8}
-          renderCellValue={renderCellRowAsValue}
-          pagination={{
-            pageIndex: 0,
-            pageSize: 3,
-            pageSizeOptions: [3, 6, 10],
-            onChangePage: jest.fn((pageIndex) => {
-              const pagination = component.props().pagination;
-              component.setProps({
-                pagination: { ...pagination, pageIndex },
-              });
-            }),
-            onChangeItemsPerPage: jest.fn(),
-          }}
-        />
-      );
+      const onChangePage = jest.fn();
 
-      expect(extractGridData(component)).toEqual([
+      const Component = () => {
+        const [pageIndex, setPageIndex] = React.useState(0);
+
+        return (
+          <EuiDataGrid
+            aria-label="test grid"
+            columns={[{ id: 'Column' }]}
+            columnVisibility={{
+              visibleColumns: ['Column'],
+              setVisibleColumns: () => {},
+            }}
+            rowCount={8}
+            renderCellValue={renderCellRowAsValue}
+            pagination={{
+              pageIndex,
+              pageSize: 3,
+              pageSizeOptions: [3, 6, 10],
+              onChangePage: (newPageIndex) => {
+                // pass the call to the mock function to test newPageIndex
+                // value changes
+                onChangePage(newPageIndex);
+
+                setPageIndex(newPageIndex);
+              },
+              onChangeItemsPerPage: jest.fn(),
+            }}
+          />
+        );
+      };
+
+      const { container, getByTestSubject } = render(<Component />);
+
+      expect(extractGridDataRTL(container)).toEqual([
         ['Column'],
         ['0'],
         ['1'],
         ['2'],
       ]);
 
-      findTestSubject(component, 'pagination-button-next').simulate('click');
+      fireEvent.click(getByTestSubject('pagination-button-next'));
 
-      expect(component.props().pagination.onChangePage).toHaveBeenCalledTimes(
-        1
-      );
-      const firstCallPageIndex =
-        component.props().pagination.onChangePage.mock.calls[0][0];
-      expect(firstCallPageIndex).toBe(1);
+      expect(onChangePage).toHaveBeenCalledTimes(1);
+      expect(onChangePage).toHaveBeenCalledWith(1);
 
-      expect(extractGridData(component)).toEqual([
+      expect(extractGridDataRTL(container)).toEqual([
         ['Column'],
         ['3'],
         ['4'],
         ['5'],
       ]);
 
-      findTestSubject(component, 'pagination-button-next').simulate('click');
+      fireEvent.click(getByTestSubject('pagination-button-next'));
 
-      expect(component.props().pagination.onChangePage).toHaveBeenCalledTimes(
-        2
-      );
-      const secondCallPageIndex =
-        component.props().pagination.onChangePage.mock.calls[1][0];
-      expect(secondCallPageIndex).toBe(2);
+      expect(onChangePage).toHaveBeenCalledTimes(2);
+      expect(onChangePage).toHaveBeenCalledWith(2);
 
-      expect(extractGridData(component)).toEqual([['Column'], ['6'], ['7']]);
+      expect(extractGridDataRTL(container)).toEqual([['Column'], ['6'], ['7']]);
     });
 
     it('pages are navigable through page links', () => {
-      const component = mount(
-        <EuiDataGrid
-          aria-label="test grid"
-          columns={[{ id: 'Column' }]}
-          columnVisibility={{
-            visibleColumns: ['Column'],
-            setVisibleColumns: () => {},
-          }}
-          rowCount={8}
-          renderCellValue={renderCellRowAsValue}
-          pagination={{
-            pageIndex: 0,
-            pageSize: 3,
-            pageSizeOptions: [3, 6, 10],
-            onChangePage: jest.fn((pageIndex) => {
-              const pagination = component.props().pagination;
-              component.setProps({
-                pagination: { ...pagination, pageIndex },
-              });
-            }),
-            onChangeItemsPerPage: jest.fn(),
-          }}
-        />
-      );
+      const onChangePage = jest.fn();
 
-      expect(extractGridData(component)).toEqual([
+      const Component = () => {
+        const [pageIndex, setPageIndex] = React.useState(0);
+
+        return (
+          <EuiDataGrid
+            aria-label="test grid"
+            columns={[{ id: 'Column' }]}
+            columnVisibility={{
+              visibleColumns: ['Column'],
+              setVisibleColumns: () => {},
+            }}
+            rowCount={8}
+            renderCellValue={renderCellRowAsValue}
+            pagination={{
+              pageIndex,
+              pageSize: 3,
+              pageSizeOptions: [3, 6, 10],
+              onChangePage: (newPageIndex) => {
+                // pass the call to the mock function to test newPageIndex
+                // value changes
+                onChangePage(newPageIndex);
+
+                setPageIndex(newPageIndex);
+              },
+              onChangeItemsPerPage: jest.fn(),
+            }}
+          />
+        );
+      };
+
+      const { container, getByTestSubject } = render(<Component />);
+
+      expect(extractGridDataRTL(container)).toEqual([
         ['Column'],
         ['0'],
         ['1'],
@@ -162,28 +150,20 @@ describe('pagination', () => {
       ]);
 
       // goto page 3
-      findTestSubject(component, 'pagination-button-2').simulate('click');
+      fireEvent.click(getByTestSubject('pagination-button-2'));
 
-      expect(component.props().pagination.onChangePage).toHaveBeenCalledTimes(
-        1
-      );
-      const firstCallPageIndex =
-        component.props().pagination.onChangePage.mock.calls[0][0];
-      expect(firstCallPageIndex).toBe(2);
+      expect(onChangePage).toHaveBeenCalledTimes(1);
+      expect(onChangePage).toHaveBeenCalledWith(2);
 
-      expect(extractGridData(component)).toEqual([['Column'], ['6'], ['7']]);
+      expect(extractGridDataRTL(container)).toEqual([['Column'], ['6'], ['7']]);
 
       // goto page 2
-      findTestSubject(component, 'pagination-button-1').simulate('click');
+      fireEvent.click(getByTestSubject('pagination-button-1'));
 
-      expect(component.props().pagination.onChangePage).toHaveBeenCalledTimes(
-        2
-      );
-      const secondCallPageIndex =
-        component.props().pagination.onChangePage.mock.calls[1][0];
-      expect(secondCallPageIndex).toBe(1);
+      expect(onChangePage).toHaveBeenCalledTimes(2);
+      expect(onChangePage).toHaveBeenCalledWith(1);
 
-      expect(extractGridData(component)).toEqual([
+      expect(extractGridDataRTL(container)).toEqual([
         ['Column'],
         ['3'],
         ['4'],
@@ -193,65 +173,64 @@ describe('pagination', () => {
   });
 
   it('changes the page size', () => {
-    const component = mount(
-      <EuiDataGrid
-        aria-label="test grid"
-        columns={[{ id: 'Column' }]}
-        columnVisibility={{
-          visibleColumns: ['Column'],
-          setVisibleColumns: () => {},
-        }}
-        rowCount={8}
-        renderCellValue={renderCellRowAsValue}
-        pagination={{
-          pageIndex: 0,
-          pageSize: 3,
-          pageSizeOptions: [3, 6, 10],
-          onChangePage: jest.fn(),
-          onChangeItemsPerPage: jest.fn((pageSize) => {
-            const pagination = component.props().pagination;
-            component.setProps({
-              pagination: { ...pagination, pageSize },
-            });
-          }),
-        }}
-      />
-    );
+    const onChangeItemsPerPage = jest.fn();
 
-    expect(extractGridData(component)).toEqual([
+    const Component = () => {
+      const [pageSize, setPageSize] = useState(3);
+
+      return (
+        <EuiDataGrid
+          aria-label="test grid"
+          columns={[{ id: 'Column' }]}
+          columnVisibility={{
+            visibleColumns: ['Column'],
+            setVisibleColumns: () => {},
+          }}
+          rowCount={8}
+          renderCellValue={renderCellRowAsValue}
+          pagination={{
+            pageIndex: 0,
+            pageSize,
+            pageSizeOptions: [3, 6, 10],
+            onChangePage: jest.fn(),
+            onChangeItemsPerPage: (newPageSize) => {
+              // pass the call to the mock function to test newPageSize
+              // value changes
+              onChangeItemsPerPage(newPageSize);
+
+              setPageSize(newPageSize);
+            },
+          }}
+        />
+      );
+    };
+
+    const { container, getByTestSubject } = render(<Component />);
+
+    expect(extractGridDataRTL(container)).toEqual([
       ['Column'],
       ['0'],
       ['1'],
       ['2'],
     ]);
 
-    act(() => {
-      findTestSubject(component, 'tablePaginationPopoverButton').simulate(
-        'click'
-      );
-    });
+    fireEvent.click(getByTestSubject('tablePaginationPopoverButton'));
 
-    const rowButtons: NodeListOf<HTMLButtonElement> =
-      document.body.querySelectorAll('.euiContextMenuItem');
-    expect(
-      Array.prototype.map.call(
-        rowButtons,
-        (button: HTMLDivElement) => button.textContent || ''
-      )
-    ).toEqual(['3 rows', '6 rows', '10 rows']);
+    const rowOptions = getByTestSubject('tablePaginationRowOptions');
+    const withinRowOptions = within(rowOptions);
 
-    act(() => {
-      rowButtons[1].click();
-    });
+    expect(withinRowOptions.getAllByRole('button')).toHaveLength(3);
+    expect(withinRowOptions.getByText('3 rows')).toBeInTheDocument();
+    const sixRows = withinRowOptions.getByText('6 rows');
+    expect(sixRows).toBeInTheDocument();
+    expect(withinRowOptions.getByText('10 rows')).toBeInTheDocument();
 
-    expect(
-      component.props().pagination.onChangeItemsPerPage
-    ).toHaveBeenCalledTimes(1);
-    const firstCallPageIndex =
-      component.props().pagination.onChangeItemsPerPage.mock.calls[0][0];
-    expect(firstCallPageIndex).toBe(6);
+    fireEvent.click(sixRows);
 
-    expect(extractGridData(component)).toEqual([
+    expect(onChangeItemsPerPage).toHaveBeenCalledTimes(1);
+    expect(onChangeItemsPerPage).toHaveBeenCalledWith(6);
+
+    expect(extractGridDataRTL(container)).toEqual([
       ['Column'],
       ['0'],
       ['1'],
