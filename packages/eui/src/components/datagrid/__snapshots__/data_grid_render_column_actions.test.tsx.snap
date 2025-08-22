@@ -41,7 +41,8 @@ exports[`render column actions renders various column actions configurations 1`]
         class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
         title="Sort A-Z"
       >
-        Sort A-Z
+        Sort 
+        A-Z
       </span>
     </button>
   </li>
@@ -61,7 +62,8 @@ exports[`render column actions renders various column actions configurations 1`]
         class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
         title="Sort Z-A"
       >
-        Sort Z-A
+        Sort 
+        Z-A
       </span>
     </button>
   </li>
@@ -152,7 +154,8 @@ exports[`render column actions renders various column actions configurations 3`]
         class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
         title="Sort A-Z"
       >
-        Sort A-Z
+        Sort 
+        A-Z
       </span>
     </button>
   </li>
@@ -172,7 +175,8 @@ exports[`render column actions renders various column actions configurations 3`]
         class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
         title="Sort Z-A"
       >
-        Sort Z-A
+        Sort 
+        Z-A
       </span>
     </button>
   </li>

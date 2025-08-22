@@ -7,14 +7,14 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
-import { findTestSubject } from '../../test';
+import { render } from '../../test/rtl';
 import { renderCellValueRowAndColumnCount } from './data_grid_test_utils';
 import { EuiDataGrid } from './data_grid';
+import { fireEvent } from '@testing-library/react';
 
 describe('render column actions', () => {
   it('renders various column actions configurations', () => {
-    const component = mount(
+    const { getByTestSubject, queryByTestSubject } = render(
       <EuiDataGrid
         aria-labelledby="#test"
         sorting={{
@@ -68,24 +68,18 @@ describe('render column actions', () => {
       />
     );
 
-    const buttonA = findTestSubject(
-      component,
-      'dataGridHeaderCellActionButton-A'
-    );
-    expect(buttonA.length).toBe(0);
+    expect(
+      queryByTestSubject('dataGridHeaderCellActionButton-A')
+    ).not.toBeInTheDocument();
 
     for (const col of ['B', 'C', 'D', 'E']) {
-      const button = findTestSubject(
-        component,
-        `dataGridHeaderCellActionButton-${col}`
+      fireEvent.click(
+        getByTestSubject(`dataGridHeaderCellActionButton-${col}`)
       );
-      button.simulate('click');
-      component.update();
-      const actionGroup = findTestSubject(
-        component,
-        `dataGridHeaderCellActionGroup-${col}`
-      );
-      expect(actionGroup.render()).toMatchSnapshot();
+
+      expect(
+        getByTestSubject(`dataGridHeaderCellActionGroup-${col}`)
+      ).toMatchSnapshot();
     }
   });
 });
