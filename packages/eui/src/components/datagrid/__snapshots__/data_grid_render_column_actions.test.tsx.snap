@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render column actions renders various column actions configurations 1`] = `
+<ul
+  class="euiListGroup emotion-euiListGroup-none-maxWidthDefault"
+  data-test-subj="dataGridHeaderCellActionGroup-B"
+>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="eyeClosed"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Hide column"
+      >
+        Hide column
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortUp"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Sort A-Z"
+      >
+        Sort 
+        A-Z
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortDown"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Sort Z-A"
+      >
+        Sort 
+        Z-A
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortLeft"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Move left"
+      >
+        Move left
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortRight"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Move right"
+      >
+        Move right
+      </span>
+    </button>
+  </li>
+</ul>
+`;
+
+exports[`render column actions renders various column actions configurations 2`] = `
+<ul
+  class="euiListGroup emotion-euiListGroup-none-maxWidthDefault"
+  data-test-subj="dataGridHeaderCellActionGroup-C"
+>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-m"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-m-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="test"
+      >
+        test
+      </span>
+    </button>
+  </li>
+</ul>
+`;
+
+exports[`render column actions renders various column actions configurations 3`] = `
+<ul
+  class="euiListGroup emotion-euiListGroup-none-maxWidthDefault"
+  data-test-subj="dataGridHeaderCellActionGroup-D"
+>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortUp"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Sort A-Z"
+      >
+        Sort 
+        A-Z
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortDown"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="Sort Z-A"
+      >
+        Sort 
+        Z-A
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-m"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-m-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="test"
+      >
+        test
+      </span>
+    </button>
+  </li>
+</ul>
+`;
+
+exports[`render column actions renders various column actions configurations 4`] = `
+<ul
+  class="euiListGroup emotion-euiListGroup-none-maxWidthDefault"
+  data-test-subj="dataGridHeaderCellActionGroup-E"
+>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="eyeClosed"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="1"
+      >
+        1
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortUp"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="2"
+      >
+        2
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortDown"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="3"
+      >
+        3
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortLeft"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="4"
+      >
+        4
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-xs"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-xs-isDisabled"
+      disabled=""
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__icon emotion-euiListGroupItem__icon"
+        color="inherit"
+        data-euiicon-type="sortRight"
+      />
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="5"
+      >
+        5
+      </span>
+    </button>
+  </li>
+  <li
+    class="euiListGroupItem emotion-euiListGroupItem-text-m"
+  >
+    <button
+      class="euiListGroupItem__button emotion-euiListGroupItem__inner-m-text-isClickable"
+      type="button"
+    >
+      <span
+        class="euiListGroupItem__label emotion-euiListGroupItem__label-truncate"
+        title="test"
+      >
+        test
+      </span>
+    </button>
+  </li>
+</ul>
+`;
