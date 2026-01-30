@@ -576,7 +576,6 @@ const testColumns: Array<EuiBasicTableColumn<Item>> = [
   {
     field: 'description',
     name: 'Description',
-    truncateText: true,
   },
   {
     field: 'tags',
@@ -594,26 +593,18 @@ const testColumns: Array<EuiBasicTableColumn<Item>> = [
   {
     field: 'alerts',
     name: 'Alerts',
-    sortable: true,
     width: '70px',
     dataType: 'number',
-    truncateText: true,
   },
   {
     field: 'events',
     name: 'Events',
-    sortable: true,
     width: '70px',
-    dataType: 'number',
-    truncateText: false,
   },
   {
     field: 'comments',
     name: 'Comments',
-    sortable: true,
     width: '75px',
-    dataType: 'number',
-    truncateText: false,
   },
   {
     field: 'category',
