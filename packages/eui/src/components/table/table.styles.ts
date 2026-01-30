@@ -53,7 +53,7 @@ export const euiTableStyles = (euiThemeContext: UseEuiTheme) => {
   return {
     euiTable: css`
       ${euiNumberFormat(euiThemeContext)}
-      ${logicalCSS('width', '100%')}
+      ${logicalCSS('min-width', '100%')}
       border: none;
       border-collapse: collapse;
     `,

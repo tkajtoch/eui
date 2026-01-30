@@ -81,6 +81,7 @@ import {
   euiBasicTableBodyLoading,
   safariLoadingWorkaround,
 } from './basic_table.styles';
+import { css } from '@emotion/react';
 
 type DataTypeProfiles = Record<
   EuiTableDataType,
@@ -557,19 +558,25 @@ export class EuiBasicTable<T extends object = any> extends Component<
           {this.renderTableMobileSort()}
         </EuiTableHeaderMobile>
         <OverrideCopiedTabularContent>
-          <EuiTable
-            id={this.tableId}
-            tableLayout={tableLayout}
-            responsiveBreakpoint={responsiveBreakpoint}
-            compressed={compressed}
-            hasBackground={hasBackground}
-            css={loading && safariLoadingWorkaround}
+          <div
+            css={css`
+              overflow: auto;
+            `}
           >
-            {this.renderTableCaption()}
-            {this.renderTableHead()}
-            {this.renderTableBody()}
-            {this.renderTableFooter()}
-          </EuiTable>
+            <EuiTable
+              id={this.tableId}
+              tableLayout={tableLayout}
+              responsiveBreakpoint={responsiveBreakpoint}
+              compressed={compressed}
+              hasBackground={hasBackground}
+              css={[loading && safariLoadingWorkaround, css``]}
+            >
+              {this.renderTableCaption()}
+              {this.renderTableHead()}
+              {this.renderTableBody()}
+              {this.renderTableFooter()}
+            </EuiTable>
+          </div>
         </OverrideCopiedTabularContent>
       </>
     );

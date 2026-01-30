@@ -24,6 +24,7 @@ import type {
 import { EuiBasicTable, EuiBasicTableProps } from './basic_table';
 import { EuiIcon } from '../icon';
 import { Pagination } from './pagination_bar';
+import { EuiBadge, EuiBadgeGroup } from '../badge';
 
 // Set static seed so that the generated faker data is consistent between page loads
 faker.seed(8_02_2010);
@@ -487,4 +488,203 @@ const StatefulPlayground = ({
       {...rest}
     />
   );
+};
+
+interface Item {
+  id: number;
+  name: string;
+  description: string;
+  tags: string[];
+  createdOn: string;
+  updatedOn: string;
+  status: string;
+  severity: string;
+  externalIncident?: string;
+  alerts: number;
+  events: number;
+  comments: number;
+}
+
+const testData: Item[] = [];
+
+for (let i = 0; i < 20; i++) {
+  testData.push({
+    id: i,
+    name: faker.company.buzzPhrase(),
+    description: faker.lorem.paragraph(),
+    tags: faker.word.words({ count: { min: 1, max: 3 } }).split(' '),
+    createdOn: faker.date.anytime().toDateString(),
+    updatedOn: faker.date.anytime().toDateString(),
+    status: ['open', 'in progress', 'resolved'].at(
+      Math.floor(Math.random() * 3)
+    )!,
+    severity: ['Low', 'Medium', 'High'].at(Math.floor(Math.random() * 3))!,
+    externalIncident: undefined,
+    alerts: faker.number.int({ min: 0, max: 20 }),
+    events: faker.number.int({ min: 0, max: 20 }),
+    comments: faker.number.int({ min: 0, max: 20 }),
+  });
+}
+
+const StatefulPlaygroundTest = ({
+  items,
+  pagination,
+  sorting,
+  ...rest
+}: EuiBasicTableProps<Item>) => {
+  const [_items, setItems] = useState<Item[]>([]);
+
+  const updateItems = useCallback(() => {
+    let sortedItems = [...items];
+
+    if (sorting?.sort) {
+      const { field, direction } = sorting?.sort;
+      const directionIndex = direction === 'desc' ? -1 : 1;
+
+      sortedItems = sortedItems.sort((a, b) =>
+        a[field]! > b[field]! ? directionIndex : -directionIndex
+      );
+    }
+
+    setItems(() => {
+      return [...sortedItems].splice(
+        0,
+        pagination?.pageSize ?? initialPageSize
+      );
+    });
+  }, [items, pagination, sorting]);
+
+  useEffect(() => {
+    updateItems();
+  }, [items, pagination, sorting, updateItems]);
+
+  return (
+    <EuiBasicTable
+      items={_items}
+      pagination={pagination!}
+      sorting={sorting}
+      {...rest}
+    />
+  );
+};
+
+const testColumns: Array<EuiBasicTableColumn<Item>> = [
+  {
+    field: 'name',
+    name: 'Name',
+  },
+  {
+    field: 'description',
+    name: 'Description',
+    truncateText: true,
+  },
+  {
+    field: 'tags',
+    name: 'Tags',
+    truncateText: true,
+    render: (value: string[]) =>
+      !!value.length && (
+        <EuiBadgeGroup gutterSize="xs">
+          {value.map((v) => (
+            <EuiBadge>{v}</EuiBadge>
+          ))}
+        </EuiBadgeGroup>
+      ),
+  },
+  {
+    field: 'alerts',
+    name: 'Alerts',
+    sortable: true,
+    width: '70px',
+    dataType: 'number',
+    truncateText: true,
+  },
+  {
+    field: 'events',
+    name: 'Events',
+    sortable: true,
+    width: '70px',
+    dataType: 'number',
+    truncateText: false,
+  },
+  {
+    field: 'comments',
+    name: 'Comments',
+    sortable: true,
+    width: '75px',
+    dataType: 'number',
+    truncateText: false,
+  },
+  {
+    field: 'category',
+    name: 'Category',
+  },
+  {
+    field: 'createdOn',
+    name: 'Created on',
+    sortable: true,
+    dataType: 'date',
+  },
+  {
+    field: 'updatedOn',
+    name: 'Updated on',
+    sortable: true,
+    dataType: 'date',
+  },
+  {
+    field: 'externalIncident',
+    name: 'External incident',
+  },
+  {
+    field: 'status',
+    name: 'Status',
+    render: (value: string) => (
+      <EuiBadge color="success" fill>
+        {value}
+      </EuiBadge>
+    ),
+    width: '100px',
+  },
+  {
+    field: 'severity',
+    name: 'Severity',
+    render: (value: string) => {
+      let color = 'success';
+      if (value === 'Medium') {
+        color = 'warning';
+      } else if (value === 'High') {
+        color = 'danger';
+      }
+      return <EuiHealth color={color}>{value}</EuiHealth>;
+    },
+    width: '90px',
+  },
+];
+
+export const CasesExample: StoryObj<EuiBasicTableProps<Item>> = {
+  args: {
+    tableCaption: 'EuiBasicTable playground',
+    items: testData,
+    itemId: 'id',
+    rowHeader: 'name',
+    columns: testColumns,
+    itemIdToExpandedRowMap: {},
+    pagination: {
+      pageIndex: 0,
+      totalItemCount: 20,
+      pageSize: 20,
+      pageSizeOptions: [10, 20],
+    },
+    sorting: {
+      sort: {
+        field: 'alerts',
+        direction: 'asc' as const,
+      },
+    },
+    onChange: (criteria: CriteriaWithPagination<Item>) =>
+      action('onChange')(criteria),
+  },
+  render: (args: EuiBasicTableProps<Item>) => (
+    <StatefulPlaygroundTest {...args} />
+  ),
 };
