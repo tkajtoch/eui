@@ -11,6 +11,7 @@ import { css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { faker } from '@faker-js/faker';
+import moment from 'moment';
 import { moveStorybookControlsToCategory } from '../../../.storybook/utils';
 
 import { useEuiTheme } from '../../services';
@@ -25,6 +26,10 @@ import { EuiBasicTable, EuiBasicTableProps } from './basic_table';
 import { EuiIcon } from '../icon';
 import { Pagination } from './pagination_bar';
 import { EuiBadge, EuiBadgeGroup } from '../badge';
+import { EuiSwitch } from '../form';
+import { EuiSpacer } from '../spacer';
+import { EuiFlexGroup } from '../flex';
+import { EuiAvatar } from '../avatar';
 
 // Set static seed so that the generated faker data is consistent between page loads
 faker.seed(8_02_2010);
@@ -493,10 +498,10 @@ const StatefulPlayground = ({
 interface Item {
   id: number;
   name: string;
-  description: string;
+  assignees: string[];
   tags: string[];
-  createdOn: string;
-  updatedOn: string;
+  createdOn: Date;
+  updatedOn: Date;
   status: string;
   severity: string;
   externalIncident?: string;
@@ -511,10 +516,12 @@ for (let i = 0; i < 20; i++) {
   testData.push({
     id: i,
     name: faker.company.buzzPhrase(),
-    description: faker.lorem.paragraph(),
+    assignees: [...new Array(Math.floor(Math.random() * 3))].map(() =>
+      faker.person.fullName()
+    ),
     tags: faker.word.words({ count: { min: 1, max: 3 } }).split(' '),
-    createdOn: faker.date.anytime().toDateString(),
-    updatedOn: faker.date.anytime().toDateString(),
+    createdOn: faker.date.anytime(),
+    updatedOn: faker.date.anytime(),
     status: ['open', 'in progress', 'resolved'].at(
       Math.floor(Math.random() * 3)
     )!,
@@ -568,97 +575,12 @@ const StatefulPlaygroundTest = ({
   );
 };
 
-const testColumns: Array<EuiBasicTableColumn<Item>> = [
-  {
-    field: 'name',
-    name: 'Name',
-  },
-  {
-    field: 'description',
-    name: 'Description',
-  },
-  {
-    field: 'tags',
-    name: 'Tags',
-    truncateText: true,
-    render: (value: string[]) =>
-      !!value.length && (
-        <EuiBadgeGroup gutterSize="xs">
-          {value.map((v) => (
-            <EuiBadge>{v}</EuiBadge>
-          ))}
-        </EuiBadgeGroup>
-      ),
-  },
-  {
-    field: 'alerts',
-    name: 'Alerts',
-    width: '70px',
-    dataType: 'number',
-  },
-  {
-    field: 'events',
-    name: 'Events',
-    width: '70px',
-  },
-  {
-    field: 'comments',
-    name: 'Comments',
-    width: '75px',
-  },
-  {
-    field: 'category',
-    name: 'Category',
-  },
-  {
-    field: 'createdOn',
-    name: 'Created on',
-    sortable: true,
-    dataType: 'date',
-  },
-  {
-    field: 'updatedOn',
-    name: 'Updated on',
-    sortable: true,
-    dataType: 'date',
-  },
-  {
-    field: 'externalIncident',
-    name: 'External incident',
-  },
-  {
-    field: 'status',
-    name: 'Status',
-    render: (value: string) => (
-      <EuiBadge color="success" fill>
-        {value}
-      </EuiBadge>
-    ),
-    width: '100px',
-  },
-  {
-    field: 'severity',
-    name: 'Severity',
-    render: (value: string) => {
-      let color = 'success';
-      if (value === 'Medium') {
-        color = 'warning';
-      } else if (value === 'High') {
-        color = 'danger';
-      }
-      return <EuiHealth color={color}>{value}</EuiHealth>;
-    },
-    width: '90px',
-  },
-];
-
 export const CasesExample: StoryObj<EuiBasicTableProps<Item>> = {
   args: {
     tableCaption: 'EuiBasicTable playground',
     items: testData,
     itemId: 'id',
     rowHeader: 'name',
-    columns: testColumns,
     itemIdToExpandedRowMap: {},
     pagination: {
       pageIndex: 0,
@@ -675,7 +597,150 @@ export const CasesExample: StoryObj<EuiBasicTableProps<Item>> = {
     onChange: (criteria: CriteriaWithPagination<Item>) =>
       action('onChange')(criteria),
   },
-  render: (args: EuiBasicTableProps<Item>) => (
-    <StatefulPlaygroundTest {...args} />
-  ),
+  render: (args: EuiBasicTableProps<Item>) => {
+    const [fixesEnabled, setFixesEnabled] = useState(true);
+    const now = new Date();
+
+    const columns: Array<EuiBasicTableColumn<Item>> = [
+      {
+        field: 'name',
+        name: 'Name',
+        // style: fixesEnabled ? { minWidth: '500px' } : undefined,
+      },
+      {
+        field: 'assignees',
+        name: 'Assignees',
+        render: (value: string[]) => {
+          if (value.length === 0) {
+            return '—';
+          }
+
+          if (!fixesEnabled) {
+            return value.join(', ');
+          }
+
+          return (
+            <EuiFlexGroup gutterSize="xs">
+              {value.map((val) => (
+                <EuiAvatar size="s" name={val} />
+              ))}
+            </EuiFlexGroup>
+          );
+        },
+        width: fixesEnabled ? '90px' : undefined,
+      },
+      {
+        field: 'tags',
+        name: 'Tags',
+        truncateText: true,
+        render: (value: string[]) =>
+          !!value.length && (
+            <EuiBadgeGroup gutterSize="xs">
+              {value.map((v) => (
+                <EuiBadge>{v}</EuiBadge>
+              ))}
+            </EuiBadgeGroup>
+          ),
+        width: fixesEnabled ? '130px' : undefined,
+      },
+      {
+        field: 'alerts',
+        name: 'Alerts',
+        width: fixesEnabled ? '55px' : '70px',
+      },
+      {
+        field: 'events',
+        name: 'Events',
+        width: fixesEnabled ? '55px' : '70px',
+      },
+      {
+        field: 'comments',
+        name: 'Comments',
+        width: fixesEnabled ? '60px' : '70px',
+        truncateText: true,
+      },
+      {
+        field: 'category',
+        name: 'Category',
+        render: (value: string) => value ?? '—',
+      },
+      {
+        field: 'createdOn',
+        name: 'Created on',
+        sortable: true,
+        dataType: 'date',
+        render: (value: Date) => {
+          if (fixesEnabled) {
+            if (value.getFullYear() === now.getFullYear()) {
+              return moment(value).format('MMM DD @ HH:mm:ss');
+            } else {
+              return moment(value).format('MMM DD, YYYY @ HH:mm:ss');
+            }
+          }
+
+          return moment(value).format('MMM DD, YYYY @ HH:mm:ss');
+        },
+        width: fixesEnabled ? '200px' : undefined,
+      },
+      {
+        field: 'updatedOn',
+        name: 'Updated on',
+        sortable: true,
+        dataType: 'date',
+        render: (value: Date) => {
+          if (fixesEnabled) {
+            if (value.getFullYear() === now.getFullYear()) {
+              return moment(value).format('MMM DD @ HH:mm:ss');
+            } else {
+              return moment(value).format('MMM DD, YYYY @ HH:mm:ss');
+            }
+          }
+
+          return moment(value).format('MMM DD, YYYY @ HH:mm:ss');
+        },
+        width: fixesEnabled ? '200px' : undefined,
+      },
+      {
+        field: 'externalIncident',
+        name: 'External incident',
+        render: (value: string) => value ?? '—',
+      },
+      {
+        field: 'status',
+        name: 'Status',
+        render: (value: string) => (
+          <EuiBadge color="success" fill>
+            {value}
+          </EuiBadge>
+        ),
+        width: '100px',
+      },
+      {
+        field: 'severity',
+        name: 'Severity',
+        render: (value: string) => {
+          let color = 'success';
+          if (value === 'Medium') {
+            color = 'warning';
+          } else if (value === 'High') {
+            color = 'danger';
+          }
+          return <EuiHealth color={color}>{value}</EuiHealth>;
+        },
+        width: '90px',
+      },
+    ];
+
+    return (
+      <>
+        <EuiSwitch
+          label="Enable table fixes"
+          checked={fixesEnabled}
+          onChange={() => setFixesEnabled((val) => !val)}
+        />
+        <EuiSpacer size="l" />
+        <StatefulPlaygroundTest {...args} columns={columns} />
+      </>
+    );
+  },
 };
