@@ -125,7 +125,7 @@ export const EuiQuickSelectPopover: FunctionComponent<
       aria-label={buttonlabel}
       title={buttonlabel}
       size="xs"
-      iconType="arrowDown"
+      iconType="chevronSingleDown"
       iconSide="right"
       isDisabled={props.isDisabled}
       data-test-subj="superDatePickerToggleQuickMenuButton"

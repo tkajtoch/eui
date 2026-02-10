@@ -66,7 +66,7 @@ export const EuiAutoRefresh: FunctionComponent<EuiAutoRefreshProps> = ({
               onClick={() => setIsPopoverOpen((isOpen) => !isOpen)}
               size="s"
               color="text"
-              iconType="timeRefresh"
+              iconType="refreshTime"
               isDisabled={isDisabled}
             >
               <strong>
@@ -148,7 +148,7 @@ export const EuiAutoRefreshButton: FunctionComponent<
           className={classes}
           size={size}
           color={color}
-          iconType="timeRefresh"
+          iconType="refreshTime"
           title={isPaused ? autoRefeshLabelOff : autoRefeshLabelOn}
           isDisabled={isDisabled}
           {...rest}

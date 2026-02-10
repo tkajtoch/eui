@@ -191,7 +191,7 @@ export const AppendPrepend: Story = {
           prepend={
             <EuiPopover
               button={
-                <EuiButtonEmpty size="xs" iconType="arrowDown" iconSide="right">
+                <EuiButtonEmpty size="xs" iconType="chevronSingleDown" iconSide="right">
                   Popover
                 </EuiButtonEmpty>
               }
@@ -210,7 +210,7 @@ export const AppendPrepend: Story = {
             <EuiButtonEmpty
               role="button"
               size="xs"
-              iconType="arrowDown"
+              iconType="chevronSingleDown"
               iconSide="right"
               aria-label="Calendar dropdown"
             >
@@ -225,13 +225,13 @@ export const AppendPrepend: Story = {
         />
         <EuiFieldText
           placeholder="Icon & button icon"
-          prepend={<EuiIcon type="vector" />}
+          prepend={<EuiIcon type="vectorSquare" />}
           append={<EuiButtonIcon iconType="gear" aria-label="Gear this" />}
         />
         <EuiFieldText
           placeholder="Icons in buttons and popovers and tooltips"
           prepend={[
-            <EuiIcon type="vector" />,
+            <EuiIcon type="vectorSquare" />,
             <EuiButtonIcon iconType="gear" aria-label="Gear this" />,
           ]}
           append={[
@@ -247,7 +247,7 @@ export const AppendPrepend: Story = {
           append={
             <EuiPopover
               button={
-                <EuiButtonIcon iconType="arrowDown" aria-label="Popover" />
+                <EuiButtonIcon iconType="chevronSingleDown" aria-label="Popover" />
               }
               closePopover={() => {}}
             />
@@ -260,7 +260,7 @@ export const AppendPrepend: Story = {
         />
         <EuiFieldText
           placeholder="Icon and string & string and icon button"
-          prepend={[<EuiIcon type="vector" />, 'String']}
+          prepend={[<EuiIcon type="vectorSquare" />, 'String']}
           append={[
             'String',
             <EuiButtonIcon iconType="gear" aria-label="Gear this" />,
