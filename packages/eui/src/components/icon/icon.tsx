@@ -17,7 +17,7 @@ import classNames from 'classnames';
 
 import { CommonProps, keysOf } from '../common';
 
-import { typeToPathMap } from './icon_map';
+import { typeToPathMap, deprecatedIcons } from './icon_map';
 import { icon as empty } from './assets/empty';
 import { enqueueStateChange } from '../../services/react';
 
@@ -90,6 +90,12 @@ interface State {
 }
 
 function isEuiIconType(x: EuiIconProps['type']): x is EuiIconType {
+  if (typeof x === 'string' && deprecatedIcons.includes(x)) {
+    const err = new Error();
+    err.name = 'IconDeprecationError';
+    throw err;
+  }
+
   return typeof x === 'string' && typeToPathMap.hasOwnProperty(x);
 }
 
