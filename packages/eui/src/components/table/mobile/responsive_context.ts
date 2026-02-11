@@ -22,17 +22,19 @@ export const DEFAULT_TABLE_BREAKPOINT: EuiBreakpointSize = 'm';
 export const useIsEuiTableResponsive = (
   componentProp?: EuiBreakpointSize | boolean
 ): boolean => {
-  const componentDefault =
-    useComponentDefaults().EuiTable?.responsiveBreakpoint;
-  const breakpoint =
-    componentProp ?? componentDefault ?? DEFAULT_TABLE_BREAKPOINT;
+  return false;
 
-  const isBoolean = typeof breakpoint === 'boolean';
-
-  // Note: we're using `!useIsWithinMinBreakpoint` here instead of `useIsWithinMaxBreakpoint`
-  // because it more accurately reflects the single breakpoint at which tables collapse
-  const isResponsive = !useIsWithinMinBreakpoint(isBoolean ? '' : breakpoint);
-  return isBoolean ? breakpoint : isResponsive;
+  // const componentDefault =
+  //   useComponentDefaults().EuiTable?.responsiveBreakpoint;
+  // const breakpoint =
+  //   componentProp ?? componentDefault ?? DEFAULT_TABLE_BREAKPOINT;
+  //
+  // const isBoolean = typeof breakpoint === 'boolean';
+  //
+  // // Note: we're using `!useIsWithinMinBreakpoint` here instead of `useIsWithinMaxBreakpoint`
+  // // because it more accurately reflects the single breakpoint at which tables collapse
+  // const isResponsive = !useIsWithinMinBreakpoint(isBoolean ? '' : breakpoint);
+  // return isBoolean ? breakpoint : isResponsive;
 };
 
 /**
